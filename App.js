@@ -4,6 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 
 import HomeScreen from "./components/HomeScreen";
+import GameScreen from "./components/GameScreen";
 
 const Stack = createStackNavigator();
 export default function App() {
@@ -11,6 +12,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen}></Stack.Screen>
+        <Stack.Screen name="Game" component={GameScreen}></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
