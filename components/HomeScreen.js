@@ -1,24 +1,30 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button,TouchableOpacity } from "react-native";
 
 export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
   }
   state = {};
+  onStart = () => {
+    this.props.navigation.navigate("Start");
+  };
   render() {
     return (
       <View style={styles.container}>
         <Text>Home Screen</Text>
-        <Button
-          title="Game Screen"
-          onPress={() => {
-            this.props.navigation.navigate("Game", {
-              key: "turing Question 1",
-              key2: "Value",
-            });
-          }}
-        ></Button>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={this.admin}
+        >
+          <Text>Admin</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={this.onStart}
+        >
+          <Text>Start Game</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -31,4 +37,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  button: {
+    
+    backgroundColor: "#DDDDDD",
+    padding: 10
+  }
 });
