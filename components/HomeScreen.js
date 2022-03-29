@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Button, Pressable } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  Pressable,
+  TouchableOpacity,
+} from "react-native";
 import styles from "./styles";
 export default class HomeScreen extends Component {
   constructor(props) {
@@ -13,12 +20,7 @@ export default class HomeScreen extends Component {
         <Pressable
           style={styles.button}
           onPress={() => {
-            this.props.navigation.navigate("Game", {
-              Question: "turing Question 1",
-              Choice1: "1st Option",
-              Choice2: "2nd Option",
-              Choice3: "3rd Option",
-            });
+            this.props.navigation.navigate("Avatar");
           }}
         >
           <Text style={styles.text}>Start Game</Text>

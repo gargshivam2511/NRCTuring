@@ -5,6 +5,7 @@ import { StyleSheet, BackHandler, Alert } from "react-native";
 
 import HomeScreen from "./components/HomeScreen";
 import GameScreen from "./components/GameScreen";
+import AvatarScreen from "./components/AvatarScreen"
 import AdminPassScreen from "./components/AdminPassScreen";
 const Stack = createStackNavigator();
 export default function App() {
@@ -33,6 +34,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen}></Stack.Screen>
+        <Stack.Screen name="Avatar" component={AvatarScreen}></Stack.Screen>
         <Stack.Screen name="Game" component={GameScreen}></Stack.Screen>
         <Stack.Screen
           name="AdminPass"
