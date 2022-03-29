@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Button,TouchableOpacity } from "react-native";
-
+import { StyleSheet, Text, View, Button, Pressable,TouchableOpacity } from "react-native";
+import styles from "./styles";
 export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
@@ -13,33 +13,31 @@ export default class HomeScreen extends Component {
     return (
       <View style={styles.container}>
         <Text>Home Screen</Text>
-        <TouchableOpacity
+        <Pressable
           style={styles.button}
-          onPress={this.admin}
+          onPress={() => {
+            this.props.navigation.navigate("Game", {
+              Question: "turing Question 1",
+              Choice1: "1st Option",
+              Choice2: "2nd Option",
+              Choice3: "3rd Option",
+            });
+          }}
         >
-          <Text>Admin</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+          <Text style={styles.text}>Start Game</Text>
+        </Pressable>
+        <Pressable
           style={styles.button}
-          onPress={this.onStart}
+          onPress={() => {
+            this.props.navigation.navigate("AdminPass", {
+              key: "turing Question 1",
+              key2: "Value",
+            });
+          }}
         >
-          <Text>Start Game</Text>
-        </TouchableOpacity>
+          <Text style={styles.text}>Admin</Text>
+        </Pressable>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  button: {
-    
-    backgroundColor: "#DDDDDD",
-    padding: 10
-  }
-});

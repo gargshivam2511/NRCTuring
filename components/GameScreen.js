@@ -1,10 +1,15 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
+import styles from "./styles";
+
 export default class GameScreen extends Component {
   constructor(props) {
     super(props);
   }
-  state = {};
+  state = {
+    answers: [],
+    key: 6,
+  };
   render() {
     const { route, navigation } = this.props;
     return (
@@ -15,12 +20,3 @@ export default class GameScreen extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
