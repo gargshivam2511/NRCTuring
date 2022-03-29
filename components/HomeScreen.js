@@ -7,7 +7,7 @@ export default class HomeScreen extends Component {
   }
   state = {};
   onStart = () => {
-    this.props.navigation.navigate("Start");
+    this.props.navigation.navigate("Avatar");
   };
   render() {
     return (

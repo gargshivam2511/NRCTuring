@@ -5,14 +5,14 @@ import { StyleSheet, Text, View } from "react-native";
 
 import HomeScreen from "./components/HomeScreen";
 import GameScreen from "./components/GameScreen";
-import StartScreen from "./components/StartScreen"
+import AvatarScreen from "./components/AvatarScreen"
 const Stack = createStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen}></Stack.Screen>
-        <Stack.Screen name="Start" component={StartScreen}></Stack.Screen>
+        <Stack.Screen name="Avatar" component={AvatarScreen}></Stack.Screen>
         <Stack.Screen name="Game" component={GameScreen}></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
