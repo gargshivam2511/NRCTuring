@@ -1,13 +1,8 @@
 import React, { Component } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  Pressable,
-  TouchableOpacity,
-} from "react-native";
+import { Text, View, Image, Pressable, TouchableOpacity } from "react-native";
 import styles from "./styles";
+
+import dog from "../assets/dog.png";
 export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +10,19 @@ export default class HomeScreen extends Component {
   state = {};
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.avatarcontainer}>
+        <Image
+          source={dog}
+          style={[
+            styles.avatarImageClass1,
+            {
+              borderWidth: 0,
+              borderColor: "coral",
+              borderRadius: 0,
+            },
+          ]}
+        />
+        <Text style={styles.avatarmainheading}>NRC Canada</Text>
         <Text>Home Screen</Text>
         <Pressable
           style={styles.button}
