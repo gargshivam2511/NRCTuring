@@ -5,8 +5,11 @@ import { StyleSheet, BackHandler, Alert } from "react-native";
 
 import HomeScreen from "./components/HomeScreen";
 import GameScreen from "./components/GameScreen";
-import AvatarScreen from "./components/AvatarScreen"
+import AvatarScreen from "./components/AvatarScreen";
 import AdminPassScreen from "./components/AdminPassScreen";
+import AdminScreen from "./components/AdminScreen";
+import ResultScreen from "./components/ResultScreen";
+
 const Stack = createStackNavigator();
 export default function App() {
   useEffect(() => {
@@ -33,9 +36,15 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen}></Stack.Screen>
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Home"
+          component={HomeScreen}
+        ></Stack.Screen>
         <Stack.Screen name="Avatar" component={AvatarScreen}></Stack.Screen>
         <Stack.Screen name="Game" component={GameScreen}></Stack.Screen>
+        <Stack.Screen name="Admin" component={AdminScreen}></Stack.Screen>
+        <Stack.Screen name="Result" component={ResultScreen}></Stack.Screen>
         <Stack.Screen
           name="AdminPass"
           component={AdminPassScreen}
