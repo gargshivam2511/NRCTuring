@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View } from "react-native";
+import { Text, View, Image, Pressable, TouchableOpacity } from "react-native";
 import styles from "./styles";
 
 export default class ResultScreen extends Component {
@@ -13,8 +13,18 @@ export default class ResultScreen extends Component {
   render() {
     const { route, navigation } = this.props;
     return (
-      <View style={styles.container}>
-        <Text>Result Screen</Text>
+      <View style={styles.avatarcontainer}>
+        <Text>Your Score:{}</Text>
+        <Text>Robot's Score:{}</Text>
+        
+        <Pressable
+          style={styles.button}
+          onPress={() => {
+            this.props.navigation.navigate("Avatar");
+          }}
+        >
+          <Text style={styles.text}>End Game</Text>
+        </Pressable>
       </View>
     );
   }
