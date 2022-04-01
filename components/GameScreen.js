@@ -62,7 +62,7 @@ export default function GameScreen({ route, navigation }) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const initialState = [false, false, false];
   const [pressOption, setPressOption] = useState(initialState);
-
+  const {image}=route.params;
   useEffect(() => {
     console.log("In useEffect");
   }, [currentQuestion]);
@@ -114,6 +114,7 @@ export default function GameScreen({ route, navigation }) {
     const question = questions[currentQuestion];
     return (
       <SafeAreaView style={styles.questionContainer}>
+      <Image source={JSON.stringify(image)} style={styles.avatarimage} />
         {question ? (
           <>
             <Text style={styles.question}>Question {question.id}</Text>
