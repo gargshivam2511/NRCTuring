@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, TextInput, Pressable } from "react-native";
-import { Alert } from "react-native-web";
 
 import styles from "./styles";
 
