@@ -23,7 +23,7 @@ export default function GameScreen({ route, navigation }) {
     {
       id: 1,
       original:
-        "La Maison Blanche fait pression pour que des inspecteurs nucl茅aires soient envoy茅s d猫s que possible pour surveiller la fermeture par la Cor茅e du Nord de ses r茅acteurs nucl茅aires",
+        "La Maison Blanche fait pression pour que des inspecteurs nucléaires soient envoyés dès que possible pour surveiller la fermeture par la Corée du Nord de ses réacteurs nucléaires",
       englishReference:
         "White House Pushes for Nuclear Inspectors to Be Sent as Soon as Possible to Monitor North Korea's Closure of Its Nuclear Reactors",
       humanTranslation:
@@ -39,7 +39,7 @@ export default function GameScreen({ route, navigation }) {
     {
       id: 2,
       original:
-        "Les experts estiment que le plutonium 茅l茅mentaire que Pyongyang a produit au cours des 20 derni猫res ann茅es est suffisant pour cr茅er douze armes nucl茅aires.",
+        "Les experts estiment que le plutonium élémentaire que Pyongyang a produit au cours des 20 dernières années est suffisant pour créer douze armes nucléaires.",
       englishReference:
         "Experts believe that the elemental plutonium that Pyongyang has produced over the last 20 years is sufficient to create twelve nuclear weapons.",
       humanTranslation:
