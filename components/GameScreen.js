@@ -9,12 +9,14 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
+
 import suspect1 from "../assets/Suspect1.png";
 import suspect2 from "../assets/Suspect2.png";
 import suspect3 from "../assets/Suspect3.png";
 import human from "../assets/Human.png";
 import neuro from "../assets/Neuro.png";
 import staty from "../assets/Staty.png";
+import styles from "./styles";
 
 export default function GameScreen({ route, navigation }) {
   const [questions, setQuestions] = useState([
@@ -57,23 +59,42 @@ export default function GameScreen({ route, navigation }) {
   const [image3, setImage3] = useState(suspect3);
   const [showScore, setShowScore] = useState(false);
   const [buttonText, setButtonText] = useState("Submit");
-
+  const [currentQuestion, setCurrentQuestion] = useState(0);
   const initialState = [false, false, false];
   const [pressOption, setPressOption] = useState(initialState);
 
   useEffect(() => {
     console.log("In useEffect");
-  }, []);
+  }, [currentQuestion]);
 
-  const onPress = () => {
-    if (pressOption[0] || pressOption[1] || pressOption[2]) {
-      setImage1(human);
-      setImage2(neuro);
-      setImage3(staty);
-      setShowScore(true);
-      setButtonText("Next");
+  const onSubmitNextPress = () => {
+    if (currentQuestion >= questions.length) {
+      navigation.navigate("Result", {
+        key: "turing Question 1",
+        key2: "Value",
+      });
+    }
+    if (buttonText == "Submit") {
+      if (pressOption[0] || pressOption[1] || pressOption[2]) {
+        setImage1(human);
+        setImage2(neuro);
+        setImage3(staty);
+        setShowScore(true);
+        setButtonText("Next");
+      } else {
+        if (currentQuestion < questions.length) {
+          alert("Please makea choice");
+        }
+      }
     } else {
-      alert("Please make a choice");
+      setCurrentQuestion(currentQuestion + 1);
+
+      setImage1(suspect1);
+      setImage2(suspect2);
+      setImage3(suspect3);
+      setShowScore(false);
+      setButtonText("Submit");
+      setPressOption(initialState);
     }
   };
 
@@ -90,69 +111,77 @@ export default function GameScreen({ route, navigation }) {
   };
 
   const showOneQuestion = () => {
-    const question = questions[0];
+    const question = questions[currentQuestion];
     return (
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.question}>Question {question.id}</Text>
-        <View style={styles.innerContainer}>
-          <Text style={styles.question}>Sentence: {question.original}</Text>
-        </View>
+      <SafeAreaView style={styles.questionContainer}>
+        {question ? (
+          <>
+            <Text style={styles.question}>Question {question.id}</Text>
+            <View style={styles.innerContainer}>
+              <Text style={styles.question}>Sentence: {question.original}</Text>
+            </View>
 
-        <View style={styles.innerContainer}>
-          <Image source={image1} style={styles.image} />
-          <TouchableOpacity
-            style={[
-              styles.option,
-              {
-                borderColor: pressOption[0] ? "red" : "coral",
-              },
-            ]}
-            onPress={() => pressOneOption(0)}
-          >
-            <Text>{question.humanTranslation}</Text>
-          </TouchableOpacity>
-          {showScore && (
-            <Text style={styles.score}>Score: {question.humanScore}</Text>
-          )}
-        </View>
+            <View style={styles.innerContainer}>
+              <Image source={image1} style={styles.image} />
+              <TouchableOpacity
+                style={[
+                  styles.option,
+                  {
+                    borderColor: pressOption[0] ? "red" : "coral",
+                  },
+                ]}
+                onPress={() => pressOneOption(0)}
+              >
+                <Text>{question.humanTranslation}</Text>
+              </TouchableOpacity>
+              {showScore && (
+                <Text style={styles.score}>Score: {question.humanScore}</Text>
+              )}
+            </View>
 
-        <View style={styles.innerContainer}>
-          <Image source={image2} style={styles.image} />
-          <TouchableOpacity
-            style={[
-              styles.option,
-              {
-                borderColor: pressOption[1] ? "red" : "coral",
-              },
-            ]}
-            onPress={() => pressOneOption(1)}
-          >
-            <Text>{question.neuralTranslation}</Text>
-          </TouchableOpacity>
-          {showScore && (
-            <Text style={styles.score}>Score: {question.nerualScore}</Text>
-          )}
-        </View>
+            <View style={styles.innerContainer}>
+              <Image source={image2} style={styles.image} />
+              <TouchableOpacity
+                style={[
+                  styles.option,
+                  {
+                    borderColor: pressOption[1] ? "red" : "coral",
+                  },
+                ]}
+                onPress={() => pressOneOption(1)}
+              >
+                <Text>{question.neuralTranslation}</Text>
+              </TouchableOpacity>
+              {showScore && (
+                <Text style={styles.score}>Score: {question.nerualScore}</Text>
+              )}
+            </View>
 
-        <View style={styles.innerContainer}>
-          <Image source={image3} style={styles.image} />
-          <TouchableOpacity
-            style={[
-              styles.option,
-              {
-                borderColor: pressOption[2] ? "red" : "coral",
-              },
-            ]}
-            onPress={() => pressOneOption(2)}
-          >
-            <Text>{question.statisticalTranslation}</Text>
-          </TouchableOpacity>
-          {showScore && (
-            <Text style={styles.score}>Score: {question.statisticalScore}</Text>
-          )}
-        </View>
+            <View style={styles.innerContainer}>
+              <Image source={image3} style={styles.image} />
+              <TouchableOpacity
+                style={[
+                  styles.option,
+                  {
+                    borderColor: pressOption[2] ? "red" : "coral",
+                  },
+                ]}
+                onPress={() => pressOneOption(2)}
+              >
+                <Text>{question.statisticalTranslation}</Text>
+              </TouchableOpacity>
+              {showScore && (
+                <Text style={styles.score}>
+                  Score: {question.statisticalScore}
+                </Text>
+              )}
+            </View>
+          </>
+        ) : (
+          <Text>See the resutls now</Text>
+        )}
 
-        <Pressable style={styles.button} onPress={onPress}>
+        <Pressable style={styles.button} onPress={onSubmitNextPress}>
           <Text style={styles.text}>{buttonText}</Text>
         </Pressable>
       </SafeAreaView>
@@ -161,63 +190,3 @@ export default function GameScreen({ route, navigation }) {
 
   return <>{showOneQuestion()}</>;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "coral",
-    alignItems: "center",
-    justifyContent: "space-around",
-  },
-  innerContainer: {
-    flex: 1,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    width: "90%",
-    backgroundColor: "coral",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    margin: 10,
-  },
-  question: {
-    fontSize: 14,
-    margin: 10,
-  },
-  image: {
-    width: "12%",
-    height: undefined,
-    aspectRatio: 210 / 291,
-    marginRight: 5,
-  },
-  option: {
-    width: "85%",
-    flexShrink: 1,
-    borderWidth: 5,
-    borderRadius: 25,
-    overflow: "hidden",
-    backgroundColor: "#EDECEC",
-    padding: 15,
-  },
-  button: {
-    height: 50,
-    width: "20%",
-    backgroundColor: "#3700B3",
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: "center",
-    margin: 10,
-    borderRadius: 15,
-  },
-  score: {
-    marginTop: 10,
-    backgroundColor: "grey",
-    padding: 5,
-    alignContent: "center",
-    borderWidth: 2,
-    borderRadius: 5,
-    overflow: "hidden",
-  },
-  text: {
-    color: "white",
-  },
-});
