@@ -28,6 +28,7 @@ export default class HomeScreen extends Component {
           style={styles.button}
           onPress={() => {
             this.props.navigation.navigate("Avatar");
+            
           }}
         >
           <Text style={styles.text}>Start Game</Text>
