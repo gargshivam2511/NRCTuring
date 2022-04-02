@@ -62,9 +62,10 @@ export default function GameScreen({ route, navigation }) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const initialState = [false, false, false];
   const [pressOption, setPressOption] = useState(initialState);
-  const {image}=route.params;
+  const [lockOption, setLockOption] = useState(false);
+  const { image } = route.params;
   useEffect(() => {
-    console.log("In useEffect");
+    //console.log("In useEffect");
   }, [currentQuestion]);
 
   const onSubmitNextPress = () => {
@@ -81,14 +82,15 @@ export default function GameScreen({ route, navigation }) {
         setImage3(staty);
         setShowScore(true);
         setButtonText("Next");
+        setLockOption(true);
       } else {
         if (currentQuestion < questions.length) {
-          alert("Please makea choice");
+          alert("Please make a choice");
         }
       }
     } else {
       setCurrentQuestion(currentQuestion + 1);
-
+      setLockOption(false);
       setImage1(suspect1);
       setImage2(suspect2);
       setImage3(suspect3);
@@ -99,6 +101,7 @@ export default function GameScreen({ route, navigation }) {
   };
 
   const pressOneOption = (index) => {
+    if (lockOption) return;
     let newPressOption = [];
     for (let i = 0; i < 3; i++) {
       if (i === index) {
@@ -114,7 +117,7 @@ export default function GameScreen({ route, navigation }) {
     const question = questions[currentQuestion];
     return (
       <SafeAreaView style={styles.questionContainer}>
-      <Image source={JSON.stringify(image)} style={styles.avatarimage} />
+        <Image source={JSON.stringify(image)} style={styles.avatarimage} />
         {question ? (
           <>
             <Text style={styles.question}>Question {question.id}</Text>
