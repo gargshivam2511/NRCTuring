@@ -43,6 +43,7 @@ export default class HomeScreen extends Component {
             //   });
             //var file = RNFS.readFile("../sample.csv", "ascii");
             this.props.navigation.navigate("Avatar");
+            
           }}
         >
           <Text style={styles.text}>Start Game</Text>

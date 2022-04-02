@@ -21,6 +21,7 @@ export default class ResultScreen extends Component {
           style={styles.button}
           onPress={() => {
             this.props.navigation.navigate("Avatar");
+            
           }}
         >
           <Text style={styles.text}>End Game</Text>

@@ -42,7 +42,7 @@ export default styles = StyleSheet.create({
   },
   avatarmainheading: {
     fontSize: 45,
-    fontWeight: "bold",
+    //fontWeight: "bold",
   },
   avatarImageClass1: {
     width: 100,
@@ -98,6 +98,10 @@ export default styles = StyleSheet.create({
     aspectRatio: 210 / 291,
     marginRight: 5,
   },
+  avatarimage:{
+    width: 100,
+    height: 100,
+  },
   option: {
     width: "85%",
     flexShrink: 1,
@@ -130,7 +134,7 @@ export default styles = StyleSheet.create({
   text: {
     fontSize: 14,
     lineHeight: 21,
-    fontWeight: "bold",
+    //fontWeight: "100",
     letterSpacing: 0.25,
     color: "white",
   }
