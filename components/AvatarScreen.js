@@ -51,34 +51,30 @@ class StartScreen extends Component {
       this.state.pressImage2 ||
       this.state.pressImage
     ) {
-      if(this.state.pressImage1){
+      if (this.state.pressImage1) {
         this.props.navigation.navigate("Game", {
           image: dog,
-          key2: "Value",
         });
         this.setState({
-          pressImage1:false
+          pressImage1: false,
         });
       }
-      if(this.state.pressImage2){
+      if (this.state.pressImage2) {
         this.props.navigation.navigate("Game", {
           image: woman,
-          key2: "Value",
         });
         this.setState({
-          pressImage2:false
+          pressImage2: false,
         });
       }
-      if(this.state.pressImage){
+      if (this.state.pressImage) {
         this.props.navigation.navigate("Game", {
           image: man,
-          key2: "Value",
         });
         this.setState({
-          pressImage:false
+          pressImage: false,
         });
       }
-      
     } else {
       alert("Please select an avatar to continue");
     }
