@@ -117,7 +117,7 @@ export default function GameScreen({ route, navigation }) {
     const question = questions[currentQuestion];
     return (
       <SafeAreaView style={styles.questionContainer}>
-        <Image source={image} style={styles.avatarimage} />
+        <Image source={image} style={{width:40,height:40,borderRadius:50}} />
         {question ? (
           <>
             <Text style={styles.question}>Question {question.id}</Text>
