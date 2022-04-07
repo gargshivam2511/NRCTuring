@@ -137,5 +137,25 @@ export default styles = StyleSheet.create({
     //fontWeight: "100",
     letterSpacing: 0.25,
     color: "white",
+  },
+  resultImageClass: {
+    width: 80,
+    height: 80,
+    alignItems: "center",
+    marginHorizontal: 40,
+    marginVertical: 10,
+  },
+  resultHeading: {
+    fontSize: 45,
+  },
+  resultScore: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: "black",
+  },
+  resultText: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    color: "white",
   }
 });
