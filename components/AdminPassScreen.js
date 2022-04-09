@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, TextInput, Pressable } from "react-native";
-import { Alert } from "react-native-web";
+
 
 import styles from "./styles";
 
@@ -8,22 +8,20 @@ export default class AdminPassScreen extends Component {
   constructor(props) {
     super(props);
   }
-  state = {
-    text: "",
-  };
+ 
   render() {
     const { route, navigation } = this.props;
     return (
-      <View style={styles.container}>
-        <Text>Enter Admin Password</Text>
+      <View style={{ marginTop: '50%', padding: 20 }}>
+        <Text style={{ color: '#00008b' }}>Enter Password</Text>
         <TextInput
           secureTextEntry={true}
-          style={styles.input}
+          style={styles.admininput}
           placeholder="Enter Password"
           onChangeText={(newText) => this.setState({ text: newText })}
         />
         <Pressable
-          style={styles.button}
+          style={styles.button1}
           onPress={() => {
             if (this.state.text == "NRCPASSWORD")
               this.props.navigation.navigate("Admin");
