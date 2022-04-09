@@ -17,6 +17,11 @@ import human from "../assets/Human.png";
 import neuro from "../assets/Neuro.png";
 import staty from "../assets/Staty.png";
 import styles from "./styles";
+import getData from "./Utils.js"
+
+let humanPoint = 0;
+let robotPoint = 0;
+let logs = [];
 
 export default function GameScreen({ route, navigation }) {
   const [questions, setQuestions] = useState([
@@ -64,6 +69,9 @@ export default function GameScreen({ route, navigation }) {
   const [pressOption, setPressOption] = useState(initialState);
   const [lockOption, setLockOption] = useState(false);
   const { image } = route.params;
+  const [humanScore, setHumanScore] = useState(0);
+  const [robotScore, setRobotScore] = useState(0);
+  
   useEffect(() => {
     //console.log("In useEffect");
   }, [currentQuestion]);
@@ -81,6 +89,22 @@ export default function GameScreen({ route, navigation }) {
         setImage2(neuro);
         setImage3(staty);
         setShowScore(true);
+		
+        for (let i = 0; i < 3; i++) {
+          if (pressOption[i] && questions[currentQuestion].key_human === i) {
+            setHumanScore(humanScore + 1);
+            humanPoint = humanScore;
+          }
+        }
+
+        if (questions[currentQuestion].score_human >= questions[currentQuestion].score_neural
+          && questions[currentQuestion].score_human >= questions[currentQuestion].score_stat) {
+          setRobotScore(robotScore + 1);
+          robotPoint = robotScore;
+        }
+        logs.push(questions[currentQuestion].id + ", " 
+        + questions[currentQuestion].orig_fr + ", " + questions[currentQuestion].key_human);
+
         setButtonText("Next");
         setLockOption(true);
       } else {
@@ -194,3 +218,13 @@ export default function GameScreen({ route, navigation }) {
 
   return <>{showOneQuestion()}</>;
 }
+
+const getHumanScore = () => {
+  return humanPoint;
+}
+
+const getRobotScore = () => {
+  return robotPoint;
+}
+
+export { getHumanScore, getRobotScore };
