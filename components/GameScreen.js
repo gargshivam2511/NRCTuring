@@ -17,42 +17,15 @@ import human from "../assets/Human.png";
 import neuro from "../assets/Neuro.png";
 import staty from "../assets/Staty.png";
 import styles from "./styles";
+import getData from "./Utils.js"
+
+let humanPoint = 0;
+let robotPoint = 0;
+let logs = [];
+let select={};
 
 export default function GameScreen({ route, navigation }) {
-  const [questions, setQuestions] = useState([
-    {
-      id: 1,
-      original:
-        "La Maison Blanche fait pression pour que des inspecteurs nucléaires soient envoyés dès que possible pour surveiller la fermeture par la Corée du Nord de ses réacteurs nucléaires",
-      englishReference:
-        "White House Pushes for Nuclear Inspectors to Be Sent as Soon as Possible to Monitor North Korea's Closure of Its Nuclear Reactors",
-      humanTranslation:
-        "White House Urges Hastily Sending Nuclear Inspectors to Supervise North Korea's Nuclear Reactor Shutdown",
-      humanScore: 0.91271,
-      neuralTranslation:
-        "White House is pushing for nuclear inspectors to be sent as soon as possible to monitor North Korea's closure of its nuclear reactors.",
-      nerualScore: 0.957052,
-      statisticalTranslation:
-        "The White House pushed to nuclear inspectors be sent as soon as possible to oversee the closure of North Korea's nuclear reactors.",
-      statisticalScore: 0.935441,
-    },
-    {
-      id: 2,
-      original:
-        "Les experts estiment que le plutonium élémentaire que Pyongyang a produit au cours des 20 dernières années est suffisant pour créer douze armes nucléaires.",
-      englishReference:
-        "Experts believe that the elemental plutonium that Pyongyang has produced over the last 20 years is sufficient to create twelve nuclear weapons.",
-      humanTranslation:
-        "Experts believe that the plutonium produced by Pyongyang in the last 20 years is enough to manufacture 12 nuclear weapons.",
-      humanScore: 0.968453,
-      neuralTranslation:
-        "Experts believe that the basic plutonium produced by Pyongyang over the past 20 years is sufficient to create 12 nuclear weapons.",
-      nerualScore: 0.980668,
-      statisticalTranslation:
-        "Experts estimate that plutonium basic Pyongyang has produced over the last 20 years is enough to create 12 nuclear weapons.",
-      statisticalScore: 0.968812,
-    },
-  ]);
+  const [questions, setQuestions] = useState(getData(10));
   const [key, setKey] = useState(6);
   const [image1, setImage1] = useState(suspect1);
   const [image2, setImage2] = useState(suspect2);
@@ -64,6 +37,11 @@ export default function GameScreen({ route, navigation }) {
   const [pressOption, setPressOption] = useState(initialState);
   const [lockOption, setLockOption] = useState(false);
   const { image } = route.params;
+  const [humanScore, setHumanScore] = useState(0);
+  const [robotScore, setRobotScore] = useState(0);
+  let dic={};
+  let dic2={};
+
   useEffect(() => {
     //console.log("In useEffect");
   }, [currentQuestion]);
@@ -75,11 +53,40 @@ export default function GameScreen({ route, navigation }) {
         key2: "Value",
       });
     }
+        
     if (buttonText == "Submit") {
-      if (pressOption[0] || pressOption[1] || pressOption[2]) {
-        setImage1(human);
-        setImage2(neuro);
-        setImage3(staty);
+      if (pressOption[0] || pressOption[1] || pressOption[2]) {  
+        let cor=[];
+        for (let i = 0; i < 3; i++) {
+          if(questions[currentQuestion].key_human === i){
+            cor.push(human);
+            if (pressOption[i] && questions[currentQuestion].key_human === i) {
+              setHumanScore(humanScore + 1);
+              humanPoint = humanScore;
+              select[currentQuestion+1]=[questions[currentQuestion].id,questions[currentQuestion].trans_human];
+            }
+          }
+          if (questions[currentQuestion].key_neural === i) {
+            cor.push(neuro);
+            if(pressOption[i]) select[currentQuestion+1]=[questions[currentQuestion].id,questions[currentQuestion].trans_neural];
+          }
+          if (questions[currentQuestion].key_stat === i) {
+            cor.push(staty);
+            if(pressOption[i]) select[currentQuestion+1]=[questions[currentQuestion].id,questions[currentQuestion].trans_stat];
+          }
+        }
+
+        if (questions[currentQuestion].score_human >= questions[currentQuestion].score_neural
+          && questions[currentQuestion].score_human >= questions[currentQuestion].score_stat) {
+          setRobotScore(robotScore + 1);
+          robotPoint = robotScore;
+        }
+        logs.push(questions[currentQuestion].id + ", " 
+        + questions[currentQuestion].orig_fr + ", " + questions[currentQuestion].key_human);
+
+        setImage1(cor[0]);
+        setImage2(cor[1]);
+        setImage3(cor[2]);
         setShowScore(true);
         setButtonText("Next");
         setLockOption(true);
@@ -115,14 +122,24 @@ export default function GameScreen({ route, navigation }) {
 
   const showOneQuestion = () => {
     const question = questions[currentQuestion];
+    if (currentQuestion<10){
+      dic[questions[currentQuestion].key_human]=questions[currentQuestion].trans_human;
+      dic[questions[currentQuestion].key_neural]=questions[currentQuestion].trans_neural;
+      dic[questions[currentQuestion].key_stat]=questions[currentQuestion].trans_stat;
+      dic2[questions[currentQuestion].key_human]=questions[currentQuestion].score_human;
+      dic2[questions[currentQuestion].key_neural]=questions[currentQuestion].score_neural;
+      dic2[questions[currentQuestion].key_stat]=questions[currentQuestion].score_stat;
+      
+    }
+    
     return (
       <SafeAreaView style={styles.questionContainer}>
         <Image source={image} style={{width:40,height:40,borderRadius:50}} />
         {question ? (
           <>
-            <Text style={styles.question}>Question {question.id}</Text>
+            <Text style={styles.question}>Question {currentQuestion+1}</Text>
             <View style={styles.innerContainer}>
-              <Text style={styles.question}>Sentence: {question.original}</Text>
+              <Text style={styles.question}>Sentence: {question.orig_fr}</Text>
             </View>
 
             <View style={styles.innerContainer}>
@@ -136,10 +153,10 @@ export default function GameScreen({ route, navigation }) {
                 ]}
                 onPress={() => pressOneOption(0)}
               >
-                <Text>{question.humanTranslation}</Text>
+                <Text>{dic[0]}</Text>
               </TouchableOpacity>
               {showScore && (
-                <Text style={styles.score}>Score: {question.humanScore}</Text>
+                <Text style={styles.score}>Score: {dic2[0]}</Text>
               )}
             </View>
 
@@ -154,10 +171,10 @@ export default function GameScreen({ route, navigation }) {
                 ]}
                 onPress={() => pressOneOption(1)}
               >
-                <Text>{question.neuralTranslation}</Text>
+                <Text>{dic[1]}</Text>
               </TouchableOpacity>
               {showScore && (
-                <Text style={styles.score}>Score: {question.nerualScore}</Text>
+                <Text style={styles.score}>Score: {dic2[1]}</Text>
               )}
             </View>
 
@@ -172,11 +189,11 @@ export default function GameScreen({ route, navigation }) {
                 ]}
                 onPress={() => pressOneOption(2)}
               >
-                <Text>{question.statisticalTranslation}</Text>
+                <Text>{dic[2]}</Text>
               </TouchableOpacity>
               {showScore && (
                 <Text style={styles.score}>
-                  Score: {question.statisticalScore}
+                  Score: {dic2[2]}
                 </Text>
               )}
             </View>
@@ -194,3 +211,13 @@ export default function GameScreen({ route, navigation }) {
 
   return <>{showOneQuestion()}</>;
 }
+
+const getHumanScore = () => {
+  return humanPoint;
+}
+
+const getRobotScore = () => {
+  return robotPoint;
+}
+
+export { getHumanScore, getRobotScore };
