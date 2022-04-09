@@ -7,10 +7,50 @@ export default styles = StyleSheet.create({
     justifyContent: "center",
   },
   input: {
-    height: 40,
+    width:317,
+    height: 50,
     margin: 12,
     borderWidth: 1,
     padding: 10,
+  },
+  input1: {
+    height: 40,
+    marginTop:12,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 10,
+    padding: 10,
+    backgroundColor:'#ffff'
+  },
+  admininput: {
+    marginTop:12,
+    height: 50,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 10,
+    padding: 10,
+    backgroundColor:'#ffff',
+    
+   
+
+  },
+  admininput1: {
+    width:317,
+    height: 50,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,   
+    borderTopStartRadius:11,
+    borderTopLeftRadius:11,
+    borderTopRightRadius:11,
+    borderBottomLeftRadius:11,
+    borderBottomEndRadius:11,
+    borderBottomRightRadius:11,
+    borderBottomStartRadius:11,
+    borderWidth:1,
+    
+   
+
   },
   button: {
     margin: 2,
@@ -23,6 +63,31 @@ export default styles = StyleSheet.create({
     backgroundColor: "black",
     width: 150,
   },
+  button2: {
+    width:'30%',height:40,borderWidth:1,borderColor:'#00008b'
+    ,borderRadius:50,marginTop:20,justifyContent:'center',alignItems:'center'
+  },
+  button1: {
+   
+    alignItems: "center",
+    borderTopStartRadius:26,
+    borderTopLeftRadius:26,
+    borderTopRightRadius:26,
+    borderBottomLeftRadius:26,
+    borderBottomEndRadius:26,
+    borderBottomRightRadius:26,
+    borderBottomStartRadius:26,
+    borderWidth:2,
+    justifyContent: "center",
+    paddingVertical: 14,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 1,
+    backgroundColor: "#253970",
+    
+    height: 55, marginTop: 20,
+    borderRadius: 40,  justifyContent: 'center', alignItems: 'center'
+  },
   text: {
     fontSize: 14,
     lineHeight: 21,
@@ -30,9 +95,23 @@ export default styles = StyleSheet.create({
     letterSpacing: 0.25,
     color: "white",
   },
+  qtext: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: "bold",
+    letterSpacing: 0.25,
+    color: "white",
+  },
+ 
   avatarcontainer: {
     flex: 1,
     backgroundColor: "coral",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  admincontainer: {
+    flex: 1,
+    backgroundColor: "#BEBEBE",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -137,6 +216,30 @@ export default styles = StyleSheet.create({
     //fontWeight: "100",
     letterSpacing: 0.25,
     color: "white",
+  },
+  adtext: {
+    fontSize: 16,
+    width: 317,
+    height: 17,
+    fontWeight: 'bold',
+    flex:.1,
+    textAlign:"left",  
+    color: "#707070",
+  },
+  uploadtext: {
+    fontSize: 16,
+    width: 317,
+    height: 17,
+    fontWeight: 'bold',
+    textAlign:"left",  
+    color: "#707070",
+  },
+  admintext: {
+    fontSize: 21,
+    lineHeight: 50,
+    fontWeight: "bold",
+    letterSpacing: 0.25,
+    color: "black",
   },
   resultImageClass: {
     width: 80,
