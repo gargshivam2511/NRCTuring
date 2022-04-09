@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Text, View, TextInput, Pressable, TouchableOpacity } from "react-native";
 import {DocPicker} from "./DocPicker";
+import { Keyboard } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from "./styles";
 
@@ -28,12 +29,13 @@ export default class AdminScreen extends Component {
       
       <Pressable
           style={styles.button1}
-          onPress={() => {           
+          onPress={() => {          
             if (this.state.val <= 0)
               alert("Please enter a value greater than 0");              
             else 
               AsyncStorage.setItem('NO_QUES',this.state.val);
               this.props.navigation.navigate("Admin");
+              Keyboard.dismiss();
           }}
           
         >
