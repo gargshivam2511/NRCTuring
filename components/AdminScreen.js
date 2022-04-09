@@ -1,22 +1,17 @@
 import React, { Component } from "react";
-import { Text, View, Image, Pressable, TouchableOpacity } from "react-native";
-import {CustomTextInput} from "./CustomTextInput";
+import { Text, View, TextInput, Pressable, TouchableOpacity } from "react-native";
 import {DocPicker} from "./DocPicker";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import styles from "./styles";
 
 export default class AdminScreen extends Component {
   constructor(props) {
     super(props);
-    this.return_filename()
+   
   }
-  state = {};
+  state = {number:''};
 
-  return_filename = async () => {
-    let filename = await AsyncStorage.getItem('FILE_NAME');
-    console.log(filename,'-------------asdfsdf')
-  }
+  
   render() {
     //const { route, navigation } = this.props;
     
@@ -24,15 +19,26 @@ export default class AdminScreen extends Component {
       <View style={{ marginTop: '40%', padding: 20 }}>         
       <DocPicker/>   
 		  <Text  style={{ color: '#00008b',marginTop:20 }}>Enter number of questions for the game</Text>
-		  <CustomTextInput/>
+      <TextInput
+          style={styles.admininput}         
+          keyboardType="numeric"
+          placeholder="Number of Questions"
+          onChangeText={(newVal) => this.setState({ val: newVal })}
+        />
+      
       <Pressable
           style={styles.button1}
-          onPress={() => {  
-            this.return_filename()
+          onPress={() => {           
+            if (this.state.val <= 0)
+              alert("Please enter a value greater than 0");              
+            else 
+              AsyncStorage.setItem('NO_QUES',this.state.val);
+              this.props.navigation.navigate("Admin");
           }}
+          
         >
           <Text style={styles.text} secureTextEntry="true">
-            Proceed
+            Done
           </Text>
         </Pressable>
         
