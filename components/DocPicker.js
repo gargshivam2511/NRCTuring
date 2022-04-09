@@ -19,9 +19,8 @@ export const DocPicker = () => {
                 uri: uri,
                 type: "application/" + fileType
               };
-              setDoc(fileToUpload)
-              console.log(fileToUpload.name, 'sdfsdfsd fileToUpload.name')
-                FileSystem.readAsStringAsync(fileToUpload.uri)
+              setDoc(fileToUpload)           
+                FileSystem.readAsStringAsync(fileToUpload.uri, { encoding: FileSystem.EncodingType.Base64 })
                 .then((fileResult) => {
                   console.log(fileResult, '...............fileResult')
                   console.log(fileToUpload.name, 'sdfsdfsd fileToUpload.name')
@@ -29,8 +28,7 @@ export const DocPicker = () => {
                   AsyncStorage.setItem('FILE_CONTENT',fileResult);      
                 })
 				.catch((error) => {
-					//Do nothing
-					//This seems to happen when you cancel out of file select
+          console.log('There has been a problem with your fetch operation: ' + error.message);
 				});
             } 
           });

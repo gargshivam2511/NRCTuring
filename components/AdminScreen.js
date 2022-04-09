@@ -28,23 +28,14 @@ export default class AdminScreen extends Component {
       <Pressable
           style={styles.button1}
           onPress={() => {  
-          
+            this.return_filename()
           }}
         >
           <Text style={styles.text} secureTextEntry="true">
             Proceed
           </Text>
         </Pressable>
-        <Pressable
-          style={styles.button1}
-          onPress={() => {  
-            this.return_filename()
-          }}
-        >
-          <Text style={styles.text} secureTextEntry="true">
-            Print
-          </Text>
-        </Pressable>
+        
       </View>
     );
   }
