@@ -17,19 +17,19 @@ import human from "../assets/Human.png";
 import neuro from "../assets/Neuro.png";
 import staty from "../assets/Staty.png";
 import styles from "./styles";
-import getData from "./Utils.js"
+import getData from "./Utils.js";
 
 let humanPoint = 0;
 let robotPoint = 0;
 let logs = [];
-let select={};
 
 export default function GameScreen({ route, navigation }) {
-  const [questions, setQuestions] = useState(getData(10));
+  const [questions, setQuestions] = useState([]);
+  const [options, setOptions] = useState([]);
+  const [scores, setScores] = useState([]);
+  const [images, setImages] = useState([suspect1, suspect2, suspect3]);
+  const [imgOrder, setImgOrder] = useState([]);
   const [key, setKey] = useState(6);
-  const [image1, setImage1] = useState(suspect1);
-  const [image2, setImage2] = useState(suspect2);
-  const [image3, setImage3] = useState(suspect3);
   const [showScore, setShowScore] = useState(false);
   const [buttonText, setButtonText] = useState("Submit");
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -39,12 +39,44 @@ export default function GameScreen({ route, navigation }) {
   const { image } = route.params;
   const [humanScore, setHumanScore] = useState(0);
   const [robotScore, setRobotScore] = useState(0);
-  let dic={};
-  let dic2={};
 
   useEffect(() => {
-    //console.log("In useEffect");
-  }, [currentQuestion]);
+    setQuestions(getData(10));
+  }, []);
+
+  const updateOptions = () => {
+    const currQ = questions[currentQuestion];
+
+    let tempOps = [];
+    let tempScores = [];
+    let tempImgs = [];
+    for (let i = 0; i < 3; i++) {
+      if (currQ.key_human === i) {
+        tempOps.push(currQ.trans_human);
+        tempScores.push(currQ.score_human);
+        tempImgs.push(human);
+      }
+      if (currQ.key_neural === i) {
+        tempOps.push(currQ.trans_neural);
+        tempScores.push(currQ.score_neural);
+        tempImgs.push(neuro);
+      }
+      if (currQ.key_stat === i) {
+        tempOps.push(currQ.trans_stat);
+        tempScores.push(currQ.score_stat);
+        tempImgs.push(staty);
+      }
+      setImages(tempImgs);
+      setOptions(tempOps);
+      setScores(tempScores);
+    }
+  };
+
+  useEffect(() => {
+    if (currentQuestion < questions.length) {
+      updateOptions();
+    }
+  }, [questions, currentQuestion]);
 
   const onSubmitNextPress = () => {
     if (currentQuestion >= questions.length) {
@@ -53,41 +85,35 @@ export default function GameScreen({ route, navigation }) {
         key2: "Value",
       });
     }
-        
+
     if (buttonText == "Submit") {
-      if (pressOption[0] || pressOption[1] || pressOption[2]) {  
-        let cor=[];
+      if (pressOption[0] || pressOption[1] || pressOption[2]) {
+        setShowScore(true);
+
         for (let i = 0; i < 3; i++) {
-          if(questions[currentQuestion].key_human === i){
-            cor.push(human);
-            if (pressOption[i] && questions[currentQuestion].key_human === i) {
-              setHumanScore(humanScore + 1);
-              humanPoint = humanScore;
-              select[currentQuestion+1]=[questions[currentQuestion].id,questions[currentQuestion].trans_human];
-            }
-          }
-          if (questions[currentQuestion].key_neural === i) {
-            cor.push(neuro);
-            if(pressOption[i]) select[currentQuestion+1]=[questions[currentQuestion].id,questions[currentQuestion].trans_neural];
-          }
-          if (questions[currentQuestion].key_stat === i) {
-            cor.push(staty);
-            if(pressOption[i]) select[currentQuestion+1]=[questions[currentQuestion].id,questions[currentQuestion].trans_stat];
+          if (pressOption[i] && questions[currentQuestion].key_human === i) {
+            setHumanScore(humanScore + 1);
+            humanPoint = humanScore;
           }
         }
 
-        if (questions[currentQuestion].score_human >= questions[currentQuestion].score_neural
-          && questions[currentQuestion].score_human >= questions[currentQuestion].score_stat) {
+        if (
+          questions[currentQuestion].score_human >=
+            questions[currentQuestion].score_neural &&
+          questions[currentQuestion].score_human >=
+            questions[currentQuestion].score_stat
+        ) {
           setRobotScore(robotScore + 1);
           robotPoint = robotScore;
         }
-        logs.push(questions[currentQuestion].id + ", " 
-        + questions[currentQuestion].orig_fr + ", " + questions[currentQuestion].key_human);
+        logs.push(
+          questions[currentQuestion].id +
+            ", " +
+            questions[currentQuestion].orig_fr +
+            ", " +
+            questions[currentQuestion].key_human
+        );
 
-        setImage1(cor[0]);
-        setImage2(cor[1]);
-        setImage3(cor[2]);
-        setShowScore(true);
         setButtonText("Next");
         setLockOption(true);
       } else {
@@ -98,9 +124,7 @@ export default function GameScreen({ route, navigation }) {
     } else {
       setCurrentQuestion(currentQuestion + 1);
       setLockOption(false);
-      setImage1(suspect1);
-      setImage2(suspect2);
-      setImage3(suspect3);
+      setImages(initialState);
       setShowScore(false);
       setButtonText("Submit");
       setPressOption(initialState);
@@ -122,28 +146,25 @@ export default function GameScreen({ route, navigation }) {
 
   const showOneQuestion = () => {
     const question = questions[currentQuestion];
-    if (currentQuestion<10){
-      dic[questions[currentQuestion].key_human]=questions[currentQuestion].trans_human;
-      dic[questions[currentQuestion].key_neural]=questions[currentQuestion].trans_neural;
-      dic[questions[currentQuestion].key_stat]=questions[currentQuestion].trans_stat;
-      dic2[questions[currentQuestion].key_human]=questions[currentQuestion].score_human;
-      dic2[questions[currentQuestion].key_neural]=questions[currentQuestion].score_neural;
-      dic2[questions[currentQuestion].key_stat]=questions[currentQuestion].score_stat;
-      
-    }
-    
     return (
       <SafeAreaView style={styles.questionContainer}>
-        <Image source={image} style={{width:40,height:40,borderRadius:50}} />
+        <Image
+          source={image}
+          style={{ width: 40, height: 40, borderRadius: 50 }}
+        />
         {question ? (
           <>
-            <Text style={styles.question}>Question {currentQuestion+1}</Text>
+            <Text style={styles.question}>Question {currentQuestion + 1}</Text>
             <View style={styles.innerContainer}>
-              <Text style={styles.question}>Sentence: {question.orig_fr}</Text>
+              <Text style={styles.question}>French: {question.orig_fr}</Text>
+              <Text style={styles.question}>English: {question.gold_en}</Text>
             </View>
 
             <View style={styles.innerContainer}>
-              <Image source={image1} style={styles.image} />
+              <Image
+                source={showScore ? images[0] : suspect1}
+                style={styles.image}
+              />
               <TouchableOpacity
                 style={[
                   styles.option,
@@ -153,15 +174,18 @@ export default function GameScreen({ route, navigation }) {
                 ]}
                 onPress={() => pressOneOption(0)}
               >
-                <Text>{dic[0]}</Text>
+                <Text>{question.trans_human}</Text>
               </TouchableOpacity>
               {showScore && (
-                <Text style={styles.score}>Score: {dic2[0]}</Text>
+                <Text style={styles.score}>Score: {question.score_human}</Text>
               )}
             </View>
 
             <View style={styles.innerContainer}>
-              <Image source={image2} style={styles.image} />
+              <Image
+                source={showScore ? images[1] : suspect2}
+                style={styles.image}
+              />
               <TouchableOpacity
                 style={[
                   styles.option,
@@ -171,15 +195,18 @@ export default function GameScreen({ route, navigation }) {
                 ]}
                 onPress={() => pressOneOption(1)}
               >
-                <Text>{dic[1]}</Text>
+                <Text>{question.trans_neural}</Text>
               </TouchableOpacity>
               {showScore && (
-                <Text style={styles.score}>Score: {dic2[1]}</Text>
+                <Text style={styles.score}>Score: {question.score_neural}</Text>
               )}
             </View>
 
             <View style={styles.innerContainer}>
-              <Image source={image3} style={styles.image} />
+              <Image
+                source={showScore ? images[2] : suspect3}
+                style={styles.image}
+              />
               <TouchableOpacity
                 style={[
                   styles.option,
@@ -189,12 +216,10 @@ export default function GameScreen({ route, navigation }) {
                 ]}
                 onPress={() => pressOneOption(2)}
               >
-                <Text>{dic[2]}</Text>
+                <Text>{question.trans_stat}</Text>
               </TouchableOpacity>
               {showScore && (
-                <Text style={styles.score}>
-                  Score: {dic2[2]}
-                </Text>
+                <Text style={styles.score}>Score: {question.score_stat}</Text>
               )}
             </View>
           </>
@@ -214,10 +239,10 @@ export default function GameScreen({ route, navigation }) {
 
 const getHumanScore = () => {
   return humanPoint;
-}
+};
 
 const getRobotScore = () => {
   return robotPoint;
-}
+};
 
 export { getHumanScore, getRobotScore };
