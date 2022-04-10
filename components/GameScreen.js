@@ -22,6 +22,7 @@ import getData from "./Util.js";
 let humanPoint = 0;
 let robotPoint = 0;
 let logs = [];
+let userSelect={};
 
 export default function GameScreen({ route, navigation }) {
   const [questions, setQuestions] = useState([]);
@@ -94,9 +95,16 @@ export default function GameScreen({ route, navigation }) {
           if (pressOption[i] && questions[currentQuestion].key_human === i) {
             setHumanScore(humanScore + 1);
             humanPoint = humanScore;
+            userSelect[currentQuestion+1]=[questions[currentQuestion].id,questions[currentQuestion].trans_human];
+          }
+          if (pressOption[i] && questions[currentQuestion].key_neural === i) {
+            userSelect[currentQuestion+1]=[questions[currentQuestion].id,questions[currentQuestion].trans_neural];
+          }
+          if (pressOption[i] && questions[currentQuestion].key_stat === i) {
+            userSelect[currentQuestion+1]=[questions[currentQuestion].id,questions[currentQuestion].trans_stat];
           }
         }
-
+        
         if (
           questions[currentQuestion].score_human >=
             questions[currentQuestion].score_neural &&
@@ -245,4 +253,8 @@ const getRobotScore = () => {
   return robotPoint;
 };
 
-export { getHumanScore, getRobotScore };
+const getUserSelect = () => {
+  return userSelect;
+};
+
+export { getHumanScore, getRobotScore, getUserSelect };
