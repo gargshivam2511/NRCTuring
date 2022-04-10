@@ -19,7 +19,6 @@ import staty from "../assets/Staty.png";
 import styles from "./styles";
 import getData from "./Util.js";
 
-
 let humanPoint = 0;
 let robotPoint = 0;
 let logs = [];
@@ -86,7 +85,7 @@ export default function GameScreen({ route, navigation }) {
         key2: "Value",
       });
     }
-        
+
     if (buttonText == "Submit") {
       if (pressOption[0] || pressOption[1] || pressOption[2]) {
         setShowScore(true);
@@ -146,7 +145,7 @@ export default function GameScreen({ route, navigation }) {
   };
 
   const showOneQuestion = () => {
-    const question = questions[currentQuestion];  
+    const question = questions[currentQuestion];
     return (
       <SafeAreaView style={styles.questionContainer}>
         <Image
@@ -196,8 +195,7 @@ export default function GameScreen({ route, navigation }) {
                 ]}
                 onPress={() => pressOneOption(1)}
               >
-
-                <Text>{question.trans_neural}</Text>
+               <Text>{question.trans_neural}</Text>
               </TouchableOpacity>
               {showScore && (
                 <Text style={styles.score}>Score: {question.score_neural}</Text>
