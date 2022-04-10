@@ -17,7 +17,7 @@ import human from "../assets/Human.png";
 import neuro from "../assets/Neuro.png";
 import staty from "../assets/Staty.png";
 import styles from "./styles";
-import getData from "./Utils.js";
+import getData from "./Util.js";
 
 let humanPoint = 0;
 let robotPoint = 0;
@@ -195,7 +195,7 @@ export default function GameScreen({ route, navigation }) {
                 ]}
                 onPress={() => pressOneOption(1)}
               >
-                <Text>{question.trans_neural}</Text>
+               <Text>{question.trans_neural}</Text>
               </TouchableOpacity>
               {showScore && (
                 <Text style={styles.score}>Score: {question.score_neural}</Text>
