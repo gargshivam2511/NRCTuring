@@ -4,6 +4,7 @@ import styles from "./styles";
 
 import man from "../assets/man.png";
 import robot from "../assets/robot.png";
+import {getHumanScore, getRobotScore} from "./GameScreen";
 
 export default class ResultScreen extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ export default class ResultScreen extends Component {
               style={styles.resultImageClass}
             />
             <Text style={styles.resultText}>You</Text>
-            <Text style={styles.resultScore}>1</Text>
+            <Text style={styles.resultScore}>{getHumanScore()}</Text>
           </View>
 
           <View style={{ flexDirection: "column", alignItems: "center"}}>
@@ -32,7 +33,7 @@ export default class ResultScreen extends Component {
               style={styles.resultImageClass}
             />
             <Text style={styles.resultText}>Robot</Text>
-            <Text style={styles.resultScore}>2</Text>
+            <Text style={styles.resultScore}>{getRobotScore()}</Text>
            </View>
         </View>
       
