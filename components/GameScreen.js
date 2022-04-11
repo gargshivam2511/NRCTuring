@@ -121,6 +121,7 @@ export default function GameScreen({ route, navigation }) {
             ", " +
             questions[currentQuestion].key_human
         );
+        alert("You "+humanScore.toString()+"  :  "+"YISI "+robotScore.toString());
 
         setButtonText("Next");
         setLockOption(true);
@@ -182,10 +183,10 @@ export default function GameScreen({ route, navigation }) {
                 ]}
                 onPress={() => pressOneOption(0)}
               >
-                <Text>{question.trans_human}</Text>
+                <Text>{options[0]}</Text>
               </TouchableOpacity>
               {showScore && (
-                <Text style={styles.score}>Score: {question.score_human}</Text>
+                <Text style={styles.score}>Score: {scores[0]}</Text>
               )}
             </View>
 
@@ -203,10 +204,10 @@ export default function GameScreen({ route, navigation }) {
                 ]}
                 onPress={() => pressOneOption(1)}
               >
-               <Text>{question.trans_neural}</Text>
+               <Text>{options[1]}</Text>
               </TouchableOpacity>
               {showScore && (
-                <Text style={styles.score}>Score: {question.score_neural}</Text>
+                <Text style={styles.score}>Score: {scores[1]}</Text>
               )}
             </View>
 
@@ -224,10 +225,10 @@ export default function GameScreen({ route, navigation }) {
                 ]}
                 onPress={() => pressOneOption(2)}
               >
-                <Text>{question.trans_stat}</Text>
+                <Text>{options[2]}</Text>
               </TouchableOpacity>
               {showScore && (
-                <Text style={styles.score}>Score: {question.score_stat}</Text>
+                <Text style={styles.score}>Score: {scores[2]}</Text>
               )}
             </View>
           </>
