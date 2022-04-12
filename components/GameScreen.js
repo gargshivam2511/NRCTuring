@@ -22,7 +22,7 @@ import getData from "./Util.js";
 let humanPoint = 0;
 let robotPoint = 0;
 let logs = [];
-let userSelect={};
+let userSelect = {};
 
 export default function GameScreen({ route, navigation }) {
   const [questions, setQuestions] = useState([]);
@@ -95,16 +95,25 @@ export default function GameScreen({ route, navigation }) {
           if (pressOption[i] && questions[currentQuestion].key_human === i) {
             setHumanScore(humanScore + 1);
             humanPoint = humanScore;
-            userSelect[currentQuestion+1]=[questions[currentQuestion].id,questions[currentQuestion].trans_human];
+            userSelect[currentQuestion + 1] = [
+              questions[currentQuestion].id,
+              questions[currentQuestion].trans_human,
+            ];
           }
           if (pressOption[i] && questions[currentQuestion].key_neural === i) {
-            userSelect[currentQuestion+1]=[questions[currentQuestion].id,questions[currentQuestion].trans_neural];
+            userSelect[currentQuestion + 1] = [
+              questions[currentQuestion].id,
+              questions[currentQuestion].trans_neural,
+            ];
           }
           if (pressOption[i] && questions[currentQuestion].key_stat === i) {
-            userSelect[currentQuestion+1]=[questions[currentQuestion].id,questions[currentQuestion].trans_stat];
+            userSelect[currentQuestion + 1] = [
+              questions[currentQuestion].id,
+              questions[currentQuestion].trans_stat,
+            ];
           }
         }
-        
+
         if (
           questions[currentQuestion].score_human >=
             questions[currentQuestion].score_neural &&
@@ -121,7 +130,13 @@ export default function GameScreen({ route, navigation }) {
             ", " +
             questions[currentQuestion].key_human
         );
-        alert("You "+humanScore.toString()+"  :  "+"YISI "+robotScore.toString());
+        alert(
+          "You " +
+            humanScore.toString() +
+            "  :  " +
+            "YISI " +
+            robotScore.toString()
+        );
 
         setButtonText("Next");
         setLockOption(true);
@@ -204,7 +219,7 @@ export default function GameScreen({ route, navigation }) {
                 ]}
                 onPress={() => pressOneOption(1)}
               >
-               <Text>{options[1]}</Text>
+                <Text>{options[1]}</Text>
               </TouchableOpacity>
               {showScore && (
                 <Text style={styles.score}>Score: {scores[1]}</Text>
