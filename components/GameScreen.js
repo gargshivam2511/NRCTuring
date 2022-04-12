@@ -19,10 +19,10 @@ import staty from "../assets/Staty.png";
 import styles from "./styles";
 import getData from "./Util.js";
 
-
 let humanPoint = 0;
 let robotPoint = 0;
 let logs = [];
+let userSelect={};
 
 export default function GameScreen({ route, navigation }) {
   const [questions, setQuestions] = useState([]);
@@ -86,7 +86,7 @@ export default function GameScreen({ route, navigation }) {
         key2: "Value",
       });
     }
-        
+
     if (buttonText == "Submit") {
       if (pressOption[0] || pressOption[1] || pressOption[2]) {
         setShowScore(true);
@@ -95,9 +95,16 @@ export default function GameScreen({ route, navigation }) {
           if (pressOption[i] && questions[currentQuestion].key_human === i) {
             setHumanScore(humanScore + 1);
             humanPoint = humanScore;
+            userSelect[currentQuestion+1]=[questions[currentQuestion].id,questions[currentQuestion].trans_human];
+          }
+          if (pressOption[i] && questions[currentQuestion].key_neural === i) {
+            userSelect[currentQuestion+1]=[questions[currentQuestion].id,questions[currentQuestion].trans_neural];
+          }
+          if (pressOption[i] && questions[currentQuestion].key_stat === i) {
+            userSelect[currentQuestion+1]=[questions[currentQuestion].id,questions[currentQuestion].trans_stat];
           }
         }
-
+        
         if (
           questions[currentQuestion].score_human >=
             questions[currentQuestion].score_neural &&
@@ -114,6 +121,7 @@ export default function GameScreen({ route, navigation }) {
             ", " +
             questions[currentQuestion].key_human
         );
+        alert("You "+humanScore.toString()+"  :  "+"YISI "+robotScore.toString());
 
         setButtonText("Next");
         setLockOption(true);
@@ -146,7 +154,7 @@ export default function GameScreen({ route, navigation }) {
   };
 
   const showOneQuestion = () => {
-    const question = questions[currentQuestion];  
+    const question = questions[currentQuestion];
     return (
       <SafeAreaView style={styles.questionContainer}>
         <Image
@@ -175,10 +183,10 @@ export default function GameScreen({ route, navigation }) {
                 ]}
                 onPress={() => pressOneOption(0)}
               >
-                <Text>{question.trans_human}</Text>
+                <Text>{options[0]}</Text>
               </TouchableOpacity>
               {showScore && (
-                <Text style={styles.score}>Score: {question.score_human}</Text>
+                <Text style={styles.score}>Score: {scores[0]}</Text>
               )}
             </View>
 
@@ -196,11 +204,10 @@ export default function GameScreen({ route, navigation }) {
                 ]}
                 onPress={() => pressOneOption(1)}
               >
-
-                <Text>{question.trans_neural}</Text>
+               <Text>{options[1]}</Text>
               </TouchableOpacity>
               {showScore && (
-                <Text style={styles.score}>Score: {question.score_neural}</Text>
+                <Text style={styles.score}>Score: {scores[1]}</Text>
               )}
             </View>
 
@@ -218,10 +225,10 @@ export default function GameScreen({ route, navigation }) {
                 ]}
                 onPress={() => pressOneOption(2)}
               >
-                <Text>{question.trans_stat}</Text>
+                <Text>{options[2]}</Text>
               </TouchableOpacity>
               {showScore && (
-                <Text style={styles.score}>Score: {question.score_stat}</Text>
+                <Text style={styles.score}>Score: {scores[2]}</Text>
               )}
             </View>
           </>
@@ -247,4 +254,8 @@ const getRobotScore = () => {
   return robotPoint;
 };
 
-export { getHumanScore, getRobotScore };
+const getUserSelect = () => {
+  return userSelect;
+};
+
+export { getHumanScore, getRobotScore, getUserSelect };

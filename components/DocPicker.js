@@ -4,7 +4,14 @@ import * as DocumentPicker from 'expo-document-picker';
 import { Fontisto } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as FileSystem from 'expo-file-system';
-
+function validateJSON(body) {
+  try {
+    var data = JSON.parse(body);   
+    return data;
+  } catch(e) {    
+    return null;
+  }
+}
 export const DocPicker = () => {
     const [ doc, setDoc ] = useState({});
     const pickDocument = async () => {
@@ -20,12 +27,19 @@ export const DocPicker = () => {
                 type: "application/" + fileType
               };
               setDoc(fileToUpload)           
-                FileSystem.readAsStringAsync(fileToUpload.uri, { encoding: FileSystem.EncodingType.Base64 })
+                FileSystem.readAsStringAsync(fileToUpload.uri)
                 .then((fileResult) => {
                   console.log(fileResult, '...............fileResult')
                   console.log(fileToUpload.name, 'sdfsdfsd fileToUpload.name')
-                  AsyncStorage.setItem('FILE_NAME',fileToUpload.name);
-                  AsyncStorage.setItem('FILE_CONTENT',fileResult);      
+                  var data = validateJSON(fileResult);
+                  if (data) {
+                    AsyncStorage.setItem('FILE_NAME',fileToUpload.name);
+                    AsyncStorage.setItem('FILE_CONTENT',fileResult);     
+                    
+                  } else {
+                    alert("File is not a valid JSON File"); 
+                  }
+                  
                 })
 				.catch((error) => {
           console.log('There has been a problem with your fetch operation: ' + error.message);
