@@ -38,6 +38,8 @@ export default function GameScreen({ route, navigation }) {
   const [pressOption, setPressOption] = useState(initialState);
   const [lockOption, setLockOption] = useState(false);
   const { image } = route.params;
+  //Use this to play the Game.
+  const { content } = route.params;
   const [humanScore, setHumanScore] = useState(0);
   const [robotScore, setRobotScore] = useState(0);
 
