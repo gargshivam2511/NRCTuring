@@ -12,6 +12,7 @@ import dog from "../assets/dog.png";
 import woman from "../assets/woman.png";
 import styles from "./styles";
 import { Pressable } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class StartScreen extends Component {
   constructor(props) {
@@ -22,7 +23,18 @@ class StartScreen extends Component {
       pressImage: false,
     };
   }
-
+ componentDidMount(){
+   if ((AsyncStorage.getItem('FILE_NAME')==null)&&(AsyncStorage.getItem('NO_QUES')==null)){
+    this.props.navigation.navigate("Home");
+    alert("Please contact the admin as file is not loaded");
+   }
+ }
+ checkparameters=()=>{
+  if ((AsyncStorage.getItem('FILE_NAME')==null)&&(AsyncStorage.getItem('NO_QUES')==null)){
+    this.props.navigation.navigate("Home");
+    alert("Please contact the admin as file is not loaded");
+   }
+ }
   pressImg1 = () => {
     this.setState({
       pressImage1: true,
@@ -51,10 +63,31 @@ class StartScreen extends Component {
       this.state.pressImage2 ||
       this.state.pressImage
     ) {
-      this.props.navigation.navigate("Game", {
-        key: "turing Question 1",
-        key2: "Value",
-      });
+      if (this.state.pressImage1) {
+        this.props.navigation.navigate("Game", {
+          image: dog,
+        });
+        this.setState({
+          pressImage1: false,
+        });
+      }
+      if (this.state.pressImage2) {
+        this.props.navigation.navigate("Game", {
+          image: woman,
+        });
+        this.setState({
+          pressImage2: false,
+        });
+      }
+      if (this.state.pressImage) {
+        this.props.navigation.navigate("Game", {
+          image: man,
+        });
+        this.setState({
+          pressImage: false,
+        });
+      }
+      this.checkparameters();
     } else {
       alert("Please select an avatar to continue");
     }
