@@ -33,11 +33,17 @@ export default class AdminScreen extends Component {
             if (this.state.val <= 0)
               alert("Please enter a value greater than 0");              
             else 
-              AsyncStorage.setItem('NO_QUES',this.state.val);
-              this.props.navigation.navigate("Admin");
+              AsyncStorage.setItem('NO_QUES',this.state.val);  
+              console.log( '...............test')
+              AsyncStorage.getItem('FILE_CONTENT').then((fileContent) => {
+                if(fileContent){                   
+                    console.log(fileContent);
+                }
+               });
               Keyboard.dismiss();
+              this.props.navigation.navigate("Home");
           }}
-          
+
         >
           <Text style={styles.text} secureTextEntry="true">
             Done
