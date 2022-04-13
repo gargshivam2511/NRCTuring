@@ -15,7 +15,7 @@ import { Pressable } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 class StartScreen extends Component {
-  content = "";
+  content = [];
   constructor(props) {
     super(props);
     this.state = {
@@ -28,16 +28,36 @@ class StartScreen extends Component {
       if (data) {
         AsyncStorage.getItem("NO_QUES").then((number) => {
           if (number) {
-            // do randomization here!!!! data is whole content and number is number of question to play
-            this.content = JSON.parse(data)[1];
+            var allData = JSON.parse(data);
+            var arr = this.getRandomArray(allData.length, number);
 
-            //don't modify this line.
+            for (let i = 0; i < arr.length; i++) {
+              var jsonData = allData[arr[i]];
+              var keyRandom = this.getRandomArray(3, 3);
+              jsonData["key_human"] = keyRandom[0];
+              jsonData["key_neural"] = keyRandom[1];
+              jsonData["key_stat"] = keyRandom[2];
+
+              this.content.push(jsonData); 
+            }
             this.setState({ buttonDisable: false });
           }
         });
       }
     });
   }
+
+  getRandomArray = (upperBound, length) => {
+    var arr = [];
+    while (arr.length < length) {
+      var r = Math.floor(Math.random() * upperBound);
+      if (arr.indexOf(r) === -1) {
+        arr.push(r);
+      }
+    }
+    return arr;
+  }
+
   componentDidMount() {
     if (
       AsyncStorage.getItem("FILE_NAME") == null &&
@@ -79,7 +99,7 @@ class StartScreen extends Component {
     });
   };
   onPlay = () => {
-    console.log(this.content, ".... Passed Content");
+    //console.log(this.content, ".... Passed Content");
     if (
       this.state.pressImage1 ||
       this.state.pressImage2 ||

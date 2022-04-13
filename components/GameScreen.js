@@ -17,10 +17,9 @@ import human from "../assets/Human.png";
 import neuro from "../assets/Neuro.png";
 import staty from "../assets/Staty.png";
 import styles from "./styles";
-import getData from "./Util.js";
 
-let humanPoint = 0;
-let robotPoint = 0;
+let humanScore = 0;
+let robotScore = 0;
 let logs = [];
 let userSelect = {};
 
@@ -40,11 +39,11 @@ export default function GameScreen({ route, navigation }) {
   const { image } = route.params;
   //Use this to play the Game.
   const { content } = route.params;
-  const [humanScore, setHumanScore] = useState(0);
-  const [robotScore, setRobotScore] = useState(0);
 
   useEffect(() => {
-    setQuestions(getData(10));
+    humanScore = 0;
+    robotScore = 0;
+    setQuestions(content);
   }, []);
 
   const updateOptions = () => {
@@ -95,8 +94,7 @@ export default function GameScreen({ route, navigation }) {
 
         for (let i = 0; i < 3; i++) {
           if (pressOption[i] && questions[currentQuestion].key_human === i) {
-            setHumanScore(humanScore + 1);
-            humanPoint = humanScore;
+            humanScore = humanScore + 1;
             userSelect[currentQuestion + 1] = [
               questions[currentQuestion].id,
               questions[currentQuestion].trans_human,
@@ -122,15 +120,14 @@ export default function GameScreen({ route, navigation }) {
           questions[currentQuestion].score_human >=
             questions[currentQuestion].score_stat
         ) {
-          setRobotScore(robotScore + 1);
-          robotPoint = robotScore;
+          robotScore = robotScore + 1;
         }
         logs.push(
           questions[currentQuestion].id +
             ", " +
             questions[currentQuestion].orig_fr +
             ", " +
-            questions[currentQuestion].key_human
+            options[currentQuestion]
         );
         alert(
           "You " +
@@ -264,15 +261,24 @@ export default function GameScreen({ route, navigation }) {
 }
 
 const getHumanScore = () => {
-  return humanPoint;
+  return humanScore;
 };
 
 const getRobotScore = () => {
-  return robotPoint;
+  return robotScore;
 };
 
 const getUserSelect = () => {
   return userSelect;
 };
 
-export { getHumanScore, getRobotScore, getUserSelect };
+const getLogs = () => {
+  let log = "Question_id, Original_text, Chosen_response\n" + logs.join("\n");
+  return log;
+}
+
+const setLogs = () => {
+  logs = [];
+}
+
+export { getHumanScore, getRobotScore, getUserSelect, getLogs, setLogs };
