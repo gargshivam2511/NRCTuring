@@ -5,6 +5,7 @@ import styles from "./styles";
 import man from "../assets/man.png";
 import robot from "../assets/robot.png";
 import {getHumanScore, getRobotScore} from "./GameScreen";
+import saveFile from "./Util";
 
 export default class ResultScreen extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ export default class ResultScreen extends Component {
 
   render() {
     const { route, navigation } = this.props;
+    saveFile();
     return (
       <View style={styles.avatarcontainer}>
         <Text style={styles.avatarmainheading}>Score</Text>

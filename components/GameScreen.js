@@ -124,9 +124,9 @@ export default function GameScreen({ route, navigation }) {
         }
         logs.push(
           questions[currentQuestion].id +
-            ", " +
+            "\t" +
             questions[currentQuestion].orig_fr +
-            ", " +
+            "\t" +
             options[currentQuestion]
         );
         alert(
@@ -273,7 +273,7 @@ const getUserSelect = () => {
 };
 
 const getLogs = () => {
-  let log = "Question_id, Original_text, Chosen_response\n" + logs.join("\n");
+  let log = "Question_id\tOriginal_text\tChosen_response\n" + logs.join("\n");
   return log;
 }
 
