@@ -6,6 +6,7 @@ import {
   Button,
   TouchableOpacity,
   Image,
+  Alert 
 } from "react-native";
 import man from "../assets/man.png";
 import dog from "../assets/dog.png";
@@ -45,6 +46,7 @@ class StartScreen extends Component {
         });
       }
     });
+    
   }
 
   getRandomArray = (upperBound, length) => {
@@ -59,23 +61,22 @@ class StartScreen extends Component {
   }
 
   componentDidMount() {
-    if (
-      AsyncStorage.getItem("FILE_NAME") == null &&
-      AsyncStorage.getItem("NO_QUES") == null
-    ) {
-      this.props.navigation.navigate("Home");
-      alert("Please contact the admin as file is not loaded");
-    }
+    AsyncStorage.getItem("FILE_CONTENT").then((data) => {
+      if (data) {
+        
+      }else{
+        Alert.alert(
+          "Data Error",
+          " The questions file is not loaded.Please contact admin",
+          [
+            
+            { text: "OK", onPress: () => {console.log("OK Pressed");this.props.navigation.navigate("Home");} }
+          ]
+        );
+      }
+    });
   }
-  checkparameters = () => {
-    if (
-      AsyncStorage.getItem("FILE_NAME") == null &&
-      AsyncStorage.getItem("NO_QUES") == null
-    ) {
-      this.props.navigation.navigate("Home");
-      alert("Please contact the admin as file is not loaded");
-    }
-  };
+  
   pressImg1 = () => {
     this.setState({
       pressImage1: true,
@@ -100,7 +101,7 @@ class StartScreen extends Component {
   };
   onPlay = () => {
     //console.log(this.content, ".... Passed Content");
-    if (
+        if (
       this.state.pressImage1 ||
       this.state.pressImage2 ||
       this.state.pressImage
