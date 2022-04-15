@@ -109,6 +109,7 @@ class StartScreen extends Component {
       if (this.state.pressImage1) {
         this.props.navigation.navigate("Game", {
           image: dog,
+          content: this.content,
         });
         this.setState({
           pressImage1: false,
@@ -117,6 +118,7 @@ class StartScreen extends Component {
       if (this.state.pressImage2) {
         this.props.navigation.navigate("Game", {
           image: woman,
+          content: this.content,
         });
         this.setState({
           pressImage2: false,
