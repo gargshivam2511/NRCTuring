@@ -131,7 +131,7 @@ class StartScreen extends Component {
           pressImage: false,
         });
       }
-      this.checkparameters();
+      
     } else {
       alert("Please select an avatar to continue");
     }
