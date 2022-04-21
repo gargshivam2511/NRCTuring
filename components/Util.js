@@ -10,7 +10,7 @@ const saveFile = async () => {
         let fileUri = FileSystem.documentDirectory + filename
         await FileSystem.writeAsStringAsync(fileUri, getLogs(), { encoding: FileSystem.EncodingType.UTF8 });
         setLogs();
-        const UTI = 'public.content';
+        const UTI = 'public.item';
         const shareResult = await Sharing.shareAsync(downloadedFile.uri, {UTI});
     }
     else {
