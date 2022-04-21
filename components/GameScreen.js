@@ -100,18 +100,39 @@ export default function GameScreen({ route, navigation }) {
               questions[currentQuestion].id,
               questions[currentQuestion].trans_human,
             ];
+            logs.push(
+              questions[currentQuestion].id +
+                "\t" +
+                questions[currentQuestion].orig_fr +
+                "\t" +
+                questions[currentQuestion].trans_human
+            );
           }
           if (pressOption[i] && questions[currentQuestion].key_neural === i) {
             userSelect[currentQuestion + 1] = [
               questions[currentQuestion].id,
               questions[currentQuestion].trans_neural,
             ];
+            logs.push(
+              questions[currentQuestion].id +
+                "\t" +
+                questions[currentQuestion].orig_fr +
+                "\t" +
+                questions[currentQuestion].trans_neural
+            );
           }
           if (pressOption[i] && questions[currentQuestion].key_stat === i) {
             userSelect[currentQuestion + 1] = [
               questions[currentQuestion].id,
               questions[currentQuestion].trans_stat,
             ];
+            logs.push(
+              questions[currentQuestion].id +
+                "\t" +
+                questions[currentQuestion].orig_fr +
+                "\t" +
+                questions[currentQuestion].trans_stat
+            );
           }
         }
 
@@ -123,13 +144,7 @@ export default function GameScreen({ route, navigation }) {
         ) {
           robotScore = robotScore + 1;
         }
-        logs.push(
-          questions[currentQuestion].id +
-            "\t" +
-            questions[currentQuestion].orig_fr +
-            "\t" +
-            options[currentQuestion]
-        );
+       
         alert(
           "You " +
             humanScore.toString() +
