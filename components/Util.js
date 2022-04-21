@@ -11,7 +11,7 @@ const saveFile = async () => {
         await FileSystem.writeAsStringAsync(fileUri, getLogs(), { encoding: FileSystem.EncodingType.UTF8 });
         setLogs();
         const UTI = 'public.item';
-        const shareResult = await Sharing.shareAsync(downloadedFile.uri, {UTI});
+        const shareResult = await Sharing.shareAsync(fileUri, {UTI});
     }
     else {
         var albumName = "NRCTuring";
