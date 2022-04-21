@@ -17,6 +17,7 @@ import human from "../assets/Human.png";
 import neuro from "../assets/Neuro.png";
 import staty from "../assets/Staty.png";
 import styles from "./styles";
+import arror from "../assets/arrow.png";
 
 let humanScore = 0;
 let robotScore = 0;
@@ -173,7 +174,7 @@ export default function GameScreen({ route, navigation }) {
       <SafeAreaView style={styles.questionContainer}>
         <Image
           source={image}
-          style={{ width: 40, height: 40, borderRadius: 50 }}
+          style={{ width: 40, height: 40, borderRadius: 50, marginTop: 10 }}
         />
         {question ? (
           <>
@@ -197,10 +198,19 @@ export default function GameScreen({ route, navigation }) {
                 ]}
                 onPress={() => pressOneOption(0)}
               >
-                <Text>{options[0]}</Text>
+                <Text style={{fontSize: 20}}>{options[0]}</Text>
               </TouchableOpacity>
               {showScore && (
-                <Text style={styles.score}>Score: {scores[0]}</Text>
+                <>
+                  <Text style={styles.score}>Score: {scores[0]}</Text>
+                  {(scores[0] > scores[1] && scores[0] > scores[2]) && 
+                    <>
+                      <Image  source={arror}
+                      style={{width: 30, height: 30}} />
+                      <Text style={{color: "blue", borderColor: "green", fontSize: 20}}>{`Yisi selected this!`}</Text>
+                    </>
+                  }
+                </>
               )}
             </View>
 
@@ -218,10 +228,19 @@ export default function GameScreen({ route, navigation }) {
                 ]}
                 onPress={() => pressOneOption(1)}
               >
-                <Text>{options[1]}</Text>
+                <Text style={{fontSize: 20}}>{options[1]}</Text>
               </TouchableOpacity>
               {showScore && (
-                <Text style={styles.score}>Score: {scores[1]}</Text>
+                <>
+                  <Text style={styles.score}>Score: {scores[1]}</Text>
+                  {(scores[1] > scores[0] && scores[1] > scores[2]) && 
+                    <>
+                      <Image  source={arror}
+                      style={{width: 30, height: 30}} />
+                      <Text style={{color: "blue", borderColor: "green"}}>{`Yisi selected this!`}</Text>
+                    </>
+                  }
+                </>
               )}
             </View>
 
@@ -239,10 +258,19 @@ export default function GameScreen({ route, navigation }) {
                 ]}
                 onPress={() => pressOneOption(2)}
               >
-                <Text>{options[2]}</Text>
+                <Text style={{fontSize: 20}}>{options[2]}</Text>
               </TouchableOpacity>
               {showScore && (
-                <Text style={styles.score}>Score: {scores[2]}</Text>
+                <>
+                  <Text style={styles.score}>Score: {scores[2]}</Text>
+                  {(scores[2] > scores[1] && scores[2] > scores[0]) && 
+                    <>
+                      <Image  source={arror}
+                      style={{width: 30, height: 30}} />
+                      <Text style={{color: "blue", borderColor: "green"}}>{`Yisi selected this!`}</Text>
+                    </>
+                  }
+                </>
               )}
             </View>
           </>

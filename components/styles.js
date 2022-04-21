@@ -165,17 +165,17 @@ export default styles = StyleSheet.create({
     backgroundColor: "coral",
     alignItems: "center",
     justifyContent: "flex-start",
-    margin: 10,
   },
   question: {
-    fontSize: 14,
+    fontSize: 22,
     margin: 20,
   },
   image: {
-    width: "12%",
+    width: "7%",
     height: undefined,
     aspectRatio: 210 / 291,
-    marginRight: 5,
+    marginRight: "auto",
+    marginLeft: "auto"
   },
   avatarimage:{
     width: 100,
@@ -183,15 +183,19 @@ export default styles = StyleSheet.create({
   },
   option: {
     width: "85%",
+    marginLeft: "auto",
+    marginRight: "auto",
     flexShrink: 1,
     borderWidth: 5,
     borderRadius: 25,
     overflow: "hidden",
     backgroundColor: "#EDECEC",
     padding: 15,
-  },
+  }, 
   score: {
     marginTop: 10,
+    marginLeft: 20,
+    marginRight: 20,
     backgroundColor: "grey",
     padding: 5,
     alignContent: "center",
@@ -211,7 +215,7 @@ export default styles = StyleSheet.create({
     width: 150,
   },
   text: {
-    fontSize: 14,
+    fontSize: 16,
     lineHeight: 21,
     //fontWeight: "100",
     letterSpacing: 0.25,
