@@ -1,10 +1,11 @@
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from "expo-sharing";
+import { Platform } from 'react-native';
 import { getLogs, setLogs } from './GameScreen';
 
 const saveFile = async () => {
     
-    if (isIos) {
+    if (Platform.OS === 'ios') {
         var filename = "gamelog" + "_" + Date.now() + ".tsv"
         let fileUri = FileSystem.documentDirectory + filename
         await FileSystem.writeAsStringAsync(fileUri, getLogs(), { encoding: FileSystem.EncodingType.UTF8 });
