@@ -6,7 +6,7 @@ import {
   Button,
   TouchableOpacity,
   Image,
-  Alert 
+  Alert,
 } from "react-native";
 import man from "../assets/man.png";
 import dog from "../assets/dog.png";
@@ -39,14 +39,13 @@ class StartScreen extends Component {
               jsonData["key_neural"] = keyRandom[1];
               jsonData["key_stat"] = keyRandom[2];
 
-              this.content.push(jsonData); 
+              this.content.push(jsonData);
             }
             this.setState({ buttonDisable: false });
           }
         });
       }
     });
-    
   }
 
   getRandomArray = (upperBound, length) => {
@@ -58,25 +57,43 @@ class StartScreen extends Component {
       }
     }
     return arr;
-  }
+  };
 
+  fail(message) {
+    Alert.alert("Data Error", message + "Please contact admin", [
+      {
+        text: "OK",
+        onPress: () => {
+          console.log("OK Pressed");
+          this.props.navigation.navigate("Home");
+        },
+      },
+    ]);
+  }
   componentDidMount() {
     AsyncStorage.getItem("FILE_CONTENT").then((data) => {
       if (data) {
-        
-      }else{
-        Alert.alert(
-          "Data Error",
-          " The questions file is not loaded.Please contact admin",
-          [
-            
-            { text: "OK", onPress: () => {console.log("OK Pressed");this.props.navigation.navigate("Home");} }
-          ]
-        );
+        AsyncStorage.getItem("NO_QUES").then((data) => {
+          if (data) {
+            if (Platform.OS === "ios") {
+            } else {
+              AsyncStorage.getItem("downloadURI").then((data) => {
+                if (data) {
+                } else {
+                  this.fail("download folder is not set.");
+                }
+              });
+            }
+          } else {
+            this.fail("Number of Question is not selected");
+          }
+        });
+      } else {
+        this.fail("Input File is not selected.");
       }
     });
   }
-  
+
   pressImg1 = () => {
     this.setState({
       pressImage1: true,
@@ -101,7 +118,7 @@ class StartScreen extends Component {
   };
   onPlay = () => {
     //console.log(this.content, ".... Passed Content");
-        if (
+    if (
       this.state.pressImage1 ||
       this.state.pressImage2 ||
       this.state.pressImage
@@ -133,7 +150,6 @@ class StartScreen extends Component {
           pressImage: false,
         });
       }
-      
     } else {
       alert("Please select an avatar to continue");
     }

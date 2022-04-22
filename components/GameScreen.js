@@ -144,14 +144,6 @@ export default function GameScreen({ route, navigation }) {
         ) {
           robotScore = robotScore + 1;
         }
-       
-        alert(
-          "You " +
-            humanScore.toString() +
-            "  :  " +
-            "YISI " +
-            robotScore.toString()
-        );
 
         setButtonText("Next");
         setLockOption(true);
@@ -161,6 +153,13 @@ export default function GameScreen({ route, navigation }) {
         }
       }
     } else {
+      alert(
+        "You " +
+          humanScore.toString() +
+          "  :  " +
+          "YISI " +
+          robotScore.toString()
+      );
       setCurrentQuestion(currentQuestion + 1);
       setLockOption(false);
       setImages(initialState);
@@ -213,18 +212,23 @@ export default function GameScreen({ route, navigation }) {
                 ]}
                 onPress={() => pressOneOption(0)}
               >
-                <Text style={{fontSize: 20}}>{options[0]}</Text>
+                <Text style={{ fontSize: 20 }}>{options[0]}</Text>
               </TouchableOpacity>
               {showScore && (
                 <>
                   <Text style={styles.score}>Score: {scores[0]}</Text>
-                  {(scores[0] > scores[1] && scores[0] > scores[2]) && 
+                  {scores[0] > scores[1] && scores[0] > scores[2] && (
                     <>
-                      <Image  source={arror}
-                      style={{width: 30, height: 30}} />
-                      <Text style={{color: "blue", borderColor: "green", fontSize: 20}}>{`Yisi selected this!`}</Text>
+                      <Image source={arror} style={{ width: 30, height: 30 }} />
+                      <Text
+                        style={{
+                          color: "blue",
+                          borderColor: "green",
+                          fontSize: 20,
+                        }}
+                      >{`Yisi selected this!`}</Text>
                     </>
-                  }
+                  )}
                 </>
               )}
             </View>
@@ -243,18 +247,19 @@ export default function GameScreen({ route, navigation }) {
                 ]}
                 onPress={() => pressOneOption(1)}
               >
-                <Text style={{fontSize: 20}}>{options[1]}</Text>
+                <Text style={{ fontSize: 20 }}>{options[1]}</Text>
               </TouchableOpacity>
               {showScore && (
                 <>
                   <Text style={styles.score}>Score: {scores[1]}</Text>
-                  {(scores[1] > scores[0] && scores[1] > scores[2]) && 
+                  {scores[1] > scores[0] && scores[1] > scores[2] && (
                     <>
-                      <Image  source={arror}
-                      style={{width: 30, height: 30}} />
-                      <Text style={{color: "blue", borderColor: "green"}}>{`Yisi selected this!`}</Text>
+                      <Image source={arror} style={{ width: 30, height: 30 }} />
+                      <Text
+                        style={{ color: "blue", borderColor: "green" }}
+                      >{`Yisi selected this!`}</Text>
                     </>
-                  }
+                  )}
                 </>
               )}
             </View>
@@ -273,18 +278,19 @@ export default function GameScreen({ route, navigation }) {
                 ]}
                 onPress={() => pressOneOption(2)}
               >
-                <Text style={{fontSize: 20}}>{options[2]}</Text>
+                <Text style={{ fontSize: 20 }}>{options[2]}</Text>
               </TouchableOpacity>
               {showScore && (
                 <>
                   <Text style={styles.score}>Score: {scores[2]}</Text>
-                  {(scores[2] > scores[1] && scores[2] > scores[0]) && 
+                  {scores[2] > scores[1] && scores[2] > scores[0] && (
                     <>
-                      <Image  source={arror}
-                      style={{width: 30, height: 30}} />
-                      <Text style={{color: "blue", borderColor: "green"}}>{`Yisi selected this!`}</Text>
+                      <Image source={arror} style={{ width: 30, height: 30 }} />
+                      <Text
+                        style={{ color: "blue", borderColor: "green" }}
+                      >{`Yisi selected this!`}</Text>
                     </>
-                  }
+                  )}
                 </>
               )}
             </View>
@@ -318,10 +324,10 @@ const getUserSelect = () => {
 const getLogs = () => {
   let log = "Question_id\tOriginal_text\tChosen_response\n" + logs.join("\n");
   return log;
-}
+};
 
 const setLogs = () => {
   logs = [];
-}
+};
 
 export { getHumanScore, getRobotScore, getUserSelect, getLogs, setLogs };
