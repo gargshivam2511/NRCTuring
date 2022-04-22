@@ -6,7 +6,7 @@ import {
   Button,
   TouchableOpacity,
   Image,
-  Alert 
+  Alert,
 } from "react-native";
 import man from "../assets/man.png";
 import dog from "../assets/dog.png";
@@ -28,25 +28,25 @@ class StartScreen extends Component {
     AsyncStorage.getItem("FILE_CONTENT").then((data) => {
       if (data) {
         AsyncStorage.getItem("NO_QUES").then((number) => {
+          // console.log("AAA");
+          // console.log(number);
           if (number) {
             var allData = JSON.parse(data);
             var arr = this.getRandomArray(allData.length, number);
-
             for (let i = 0; i < arr.length; i++) {
               var jsonData = allData[arr[i]];
               var keyRandom = this.getRandomArray(3, 3);
               jsonData["key_human"] = keyRandom[0];
               jsonData["key_neural"] = keyRandom[1];
               jsonData["key_stat"] = keyRandom[2];
-
-              this.content.push(jsonData); 
+              //console.log(jsonData);
+              this.content.push(jsonData);
             }
             this.setState({ buttonDisable: false });
           }
         });
       }
     });
-    
   }
 
   getRandomArray = (upperBound, length) => {
@@ -58,25 +58,29 @@ class StartScreen extends Component {
       }
     }
     return arr;
-  }
+  };
 
   componentDidMount() {
     AsyncStorage.getItem("FILE_CONTENT").then((data) => {
       if (data) {
-        
-      }else{
+      } else {
         Alert.alert(
           "Data Error",
           " The questions file is not loaded.Please contact admin",
           [
-            
-            { text: "OK", onPress: () => {console.log("OK Pressed");this.props.navigation.navigate("Home");} }
+            {
+              text: "OK",
+              onPress: () => {
+                console.log("OK Pressed");
+                this.props.navigation.navigate("Home");
+              },
+            },
           ]
         );
       }
     });
   }
-  
+
   pressImg1 = () => {
     this.setState({
       pressImage1: true,
@@ -101,7 +105,7 @@ class StartScreen extends Component {
   };
   onPlay = () => {
     //console.log(this.content, ".... Passed Content");
-        if (
+    if (
       this.state.pressImage1 ||
       this.state.pressImage2 ||
       this.state.pressImage
@@ -133,7 +137,6 @@ class StartScreen extends Component {
           pressImage: false,
         });
       }
-      
     } else {
       alert("Please select an avatar to continue");
     }
@@ -143,8 +146,16 @@ class StartScreen extends Component {
       <View style={styles.avatarcontainer}>
         <Text style={styles.avatarmainheading}>NRC Turing </Text>
         <Text style={styles.avatarheading}>Pick an Avatar</Text>
-        <View style={{ flexDirection: "row" }}>
-          <View style={{ flex: 1 }}>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <View
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
             <TouchableOpacity onPress={this.pressImg1}>
               <Image
                 source={dog}
@@ -159,7 +170,9 @@ class StartScreen extends Component {
               />
             </TouchableOpacity>
           </View>
-          <View style={{ flex: 1 }}>
+          <View
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
             <TouchableOpacity onPress={this.pressImg}>
               <Image
                 source={man}
@@ -174,7 +187,9 @@ class StartScreen extends Component {
               />
             </TouchableOpacity>
           </View>
-          <View style={{ flex: 1 }}>
+          <View
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
             <TouchableOpacity onPress={this.pressImg2}>
               <Image
                 source={woman}
