@@ -3,14 +3,16 @@ import { Text, View, TextInput, Pressable } from "react-native";
 import { Keyboard } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "./styles";
-
 import * as DocumentPicker from "expo-document-picker";
 import { Fontisto } from "@expo/vector-icons";
 import * as FileSystem from "expo-file-system";
+import { Platform } from "expo-modules-core";
 
 export default class AdminScreen extends Component {
   name = "";
   numberOfQuestion = 0;
+  dirname = "";
+
   constructor(props) {
     super(props);
     AsyncStorage.getItem("FILE_NAME").then((data) => {
@@ -19,6 +21,11 @@ export default class AdminScreen extends Component {
     });
     AsyncStorage.getItem("NO_QUES").then((data) => {
       if (data) this.numberOfQuestion = data;
+      this.setState({});
+    });
+
+    AsyncStorage.getItem("downloadURI").then((data) => {
+      if (data) this.dirname = data;
       this.setState({});
     });
   }
@@ -32,6 +39,22 @@ export default class AdminScreen extends Component {
       return null;
     }
   }
+
+  SaveDir = async () => {
+    const permissions =
+      await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync();
+
+    if (permissions.granted) {
+      // Gets SAF URI from response
+      const uri = permissions.directoryUri;
+
+      await AsyncStorage.setItem("downloadURI", uri);
+      alert("Directory for logs:" + uri);
+      this.dirname = uri;
+      this.setState({});
+    }
+  };
+
   pickDocument = async () => {
     this.setState({ disableButton: true });
     await DocumentPicker.getDocumentAsync({
@@ -118,7 +141,7 @@ export default class AdminScreen extends Component {
           style={styles.admininput}
           keyboardType="numeric"
           placeholder="Number of Questions"
-          defaultValue={this.numberOfQuestion}
+          defaultValue={this.numberOfQuestion + ""}
           onChangeText={(newVal) => {
             this.onSubmitButton(newVal);
           }}
@@ -135,6 +158,18 @@ export default class AdminScreen extends Component {
             {this.state.disableButton ? "Please Wait" : "Done"}
           </Text>
         </Pressable>
+
+        <Pressable
+          style={styles.button1}
+          onPress={() => {
+            this.SaveDir();
+          }}
+        >
+          <Text style={styles.text} secureTextEntry="true">
+            Change Download Directory
+          </Text>
+        </Pressable>
+        <Text>{this.dirname}</Text>
       </View>
     );
   }

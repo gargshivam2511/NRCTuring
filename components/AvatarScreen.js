@@ -39,7 +39,6 @@ class StartScreen extends Component {
               jsonData["key_human"] = keyRandom[0];
               jsonData["key_neural"] = keyRandom[1];
               jsonData["key_stat"] = keyRandom[2];
-              //console.log(jsonData);
               this.content.push(jsonData);
             }
             this.setState({ buttonDisable: false });
@@ -60,23 +59,37 @@ class StartScreen extends Component {
     return arr;
   };
 
+  fail(message) {
+    Alert.alert("Data Error", message + "Please contact admin", [
+      {
+        text: "OK",
+        onPress: () => {
+          console.log("OK Pressed");
+          this.props.navigation.navigate("Home");
+        },
+      },
+    ]);
+  }
   componentDidMount() {
     AsyncStorage.getItem("FILE_CONTENT").then((data) => {
       if (data) {
+        AsyncStorage.getItem("NO_QUES").then((data) => {
+          if (data) {
+            if (Platform.OS === "ios") {
+            } else {
+              AsyncStorage.getItem("downloadURI").then((data) => {
+                if (data) {
+                } else {
+                  this.fail("download folder is not set.");
+                }
+              });
+            }
+          } else {
+            this.fail("Number of Question is not selected");
+          }
+        });
       } else {
-        Alert.alert(
-          "Data Error",
-          " The questions file is not loaded.Please contact admin",
-          [
-            {
-              text: "OK",
-              onPress: () => {
-                console.log("OK Pressed");
-                this.props.navigation.navigate("Home");
-              },
-            },
-          ]
-        );
+        this.fail("Input File is not selected.");
       }
     });
   }
