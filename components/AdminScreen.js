@@ -122,7 +122,7 @@ export default class AdminScreen extends Component {
     //const { route, navigation } = this.props;
 
     return (
-      <View style={{ marginTop: "40%", padding: 20 }}>
+      <View style={styles.admincontainer}>
         <View>
           <Text style={styles.uploadtext}>Select and Upload File</Text>
           <Pressable style={styles.button2} onPress={this.pickDocument}>

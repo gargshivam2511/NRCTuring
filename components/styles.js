@@ -113,8 +113,8 @@ export default styles = StyleSheet.create({
   },
   admincontainer: {
     flex: 1,
-    backgroundColor: "#BEBEBE",
-    alignItems: "center",
+    width: '80%',
+    alignSelf: "center",
     justifyContent: "center",
   },
   heading: {
@@ -256,6 +256,7 @@ export default styles = StyleSheet.create({
   },
   resultHeading: {
     fontSize: 45,
+    alignItems: "center",
   },
   resultScore: {
     fontSize: 25,

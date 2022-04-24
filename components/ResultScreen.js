@@ -17,9 +17,8 @@ export default class ResultScreen extends Component {
     saveFile();
     return (
       <View style={styles.avatarcontainer}>
-        <Text style={styles.avatarmainheading}>Score</Text>
-
-        <View style={{ flexDirection: "row" }}>
+        <Text style={styles.resultHeading}>Score</Text>
+        <View style={{ flexDirection: "row", padding: 20}}>
           <View style={{ flexDirection: "column", alignItems: "center"}}>
             <Image
               source={man}

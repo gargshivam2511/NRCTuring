@@ -296,7 +296,7 @@ export default function GameScreen({ route, navigation }) {
             </View>
           </>
         ) : (
-          <Text>See the resutls now</Text>
+          <Text>See the results now</Text>
         )}
 
         <Pressable style={styles.button} onPress={onSubmitNextPress}>
