@@ -23,6 +23,7 @@ let humanScore = 0;
 let robotScore = 0;
 let logs = [];
 let userSelect = {};
+let img = {};
 
 export default function GameScreen({ route, navigation }) {
   const [questions, setQuestions] = useState([]);
@@ -87,6 +88,7 @@ export default function GameScreen({ route, navigation }) {
         key: "turing Question 1",
         key2: "Value",
       });
+      img = image;
     }
 
     if (buttonText == "Submit") {
@@ -330,4 +332,8 @@ const setLogs = () => {
   logs = [];
 };
 
-export { getHumanScore, getRobotScore, getUserSelect, getLogs, setLogs };
+const getAvatar = () => {
+  return img;
+}
+
+export { getHumanScore, getRobotScore, getUserSelect, getLogs, setLogs, getAvatar };
