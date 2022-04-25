@@ -7,7 +7,7 @@ export default styles = StyleSheet.create({
     justifyContent: "center",
   },
   input: {
-    width:317,
+    width: 317,
     height: 50,
     margin: 12,
     borderWidth: 1,
@@ -15,42 +15,36 @@ export default styles = StyleSheet.create({
   },
   input1: {
     height: 40,
-    marginTop:12,
+    marginTop: 12,
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderRadius: 10,
     padding: 10,
-    backgroundColor:'#ffff'
+    backgroundColor: "#ffff",
   },
   admininput: {
-    marginTop:12,
+    marginTop: 12,
     height: 50,
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderRadius: 10,
     padding: 10,
-    backgroundColor:'#ffff',
-    
-   
-
+    backgroundColor: "#ffff",
   },
   admininput1: {
-    width:317,
+    width: 317,
     height: 50,
     margin: 12,
     borderWidth: 1,
-    padding: 10,   
-    borderTopStartRadius:11,
-    borderTopLeftRadius:11,
-    borderTopRightRadius:11,
-    borderBottomLeftRadius:11,
-    borderBottomEndRadius:11,
-    borderBottomRightRadius:11,
-    borderBottomStartRadius:11,
-    borderWidth:1,
-    
-   
-
+    padding: 10,
+    borderTopStartRadius: 11,
+    borderTopLeftRadius: 11,
+    borderTopRightRadius: 11,
+    borderBottomLeftRadius: 11,
+    borderBottomEndRadius: 11,
+    borderBottomRightRadius: 11,
+    borderBottomStartRadius: 11,
+    borderWidth: 1,
   },
   button: {
     margin: 2,
@@ -64,29 +58,37 @@ export default styles = StyleSheet.create({
     width: 150,
   },
   button2: {
-    width:'30%',height:40,borderWidth:1,borderColor:'#00008b'
-    ,borderRadius:50,marginTop:20,justifyContent:'center',alignItems:'center'
+    width: "30%",
+    height: 40,
+    borderWidth: 1,
+    borderColor: "#00008b",
+    borderRadius: 50,
+    marginTop: 20,
+    justifyContent: "center",
+    alignItems: "center",
   },
   button1: {
-   
     alignItems: "center",
-    borderTopStartRadius:26,
-    borderTopLeftRadius:26,
-    borderTopRightRadius:26,
-    borderBottomLeftRadius:26,
-    borderBottomEndRadius:26,
-    borderBottomRightRadius:26,
-    borderBottomStartRadius:26,
-    borderWidth:2,
+    borderTopStartRadius: 26,
+    borderTopLeftRadius: 26,
+    borderTopRightRadius: 26,
+    borderBottomLeftRadius: 26,
+    borderBottomEndRadius: 26,
+    borderBottomRightRadius: 26,
+    borderBottomStartRadius: 26,
+    borderWidth: 2,
     justifyContent: "center",
     paddingVertical: 14,
     paddingHorizontal: 32,
     borderRadius: 4,
     elevation: 1,
     backgroundColor: "#253970",
-    
-    height: 55, marginTop: 20,
-    borderRadius: 40,  justifyContent: 'center', alignItems: 'center'
+
+    height: 55,
+    marginTop: 20,
+    borderRadius: 40,
+    justifyContent: "center",
+    alignItems: "center",
   },
   text: {
     fontSize: 14,
@@ -102,7 +104,7 @@ export default styles = StyleSheet.create({
     letterSpacing: 0.25,
     color: "white",
   },
- 
+
   avatarcontainer: {
     flex: 1,
     backgroundColor: "coral",
@@ -111,8 +113,8 @@ export default styles = StyleSheet.create({
   },
   admincontainer: {
     flex: 1,
-    backgroundColor: "#BEBEBE",
-    alignItems: "center",
+    width: '80%',
+    alignSelf: "center",
     justifyContent: "center",
   },
   heading: {
@@ -165,24 +167,26 @@ export default styles = StyleSheet.create({
     backgroundColor: "coral",
     alignItems: "center",
     justifyContent: "flex-start",
-    margin: 10,
   },
   question: {
-    fontSize: 14,
+    fontSize: 22,
     margin: 20,
   },
   image: {
-    width: "12%",
+    width: "7%",
     height: undefined,
     aspectRatio: 210 / 291,
-    marginRight: 5,
+    marginRight: "auto",
+    marginLeft: "auto",
   },
-  avatarimage:{
+  avatarimage: {
     width: 100,
     height: 100,
   },
   option: {
     width: "85%",
+    marginLeft: "auto",
+    marginRight: "auto",
     flexShrink: 1,
     borderWidth: 5,
     borderRadius: 25,
@@ -192,6 +196,8 @@ export default styles = StyleSheet.create({
   },
   score: {
     marginTop: 10,
+    marginLeft: 20,
+    marginRight: 20,
     backgroundColor: "grey",
     padding: 5,
     alignContent: "center",
@@ -211,7 +217,7 @@ export default styles = StyleSheet.create({
     width: 150,
   },
   text: {
-    fontSize: 14,
+    fontSize: 16,
     lineHeight: 21,
     //fontWeight: "100",
     letterSpacing: 0.25,
@@ -221,17 +227,17 @@ export default styles = StyleSheet.create({
     fontSize: 16,
     width: 317,
     height: 17,
-    fontWeight: 'bold',
-    flex:.1,
-    textAlign:"left",  
+    fontWeight: "bold",
+    flex: 0.1,
+    textAlign: "left",
     color: "#707070",
   },
   uploadtext: {
     fontSize: 16,
     width: 317,
     height: 17,
-    fontWeight: 'bold',
-    textAlign:"left",  
+    fontWeight: "bold",
+    textAlign: "left",
     color: "#707070",
   },
   admintext: {
@@ -250,15 +256,16 @@ export default styles = StyleSheet.create({
   },
   resultHeading: {
     fontSize: 45,
+    alignItems: "center",
   },
   resultScore: {
     fontSize: 25,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: "black",
   },
   resultText: {
     fontSize: 10,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: "white",
-  }
+  },
 });

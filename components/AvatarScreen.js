@@ -6,6 +6,7 @@ import {
   Button,
   TouchableOpacity,
   Image,
+  Alert,
 } from "react-native";
 import man from "../assets/man.png";
 import dog from "../assets/dog.png";
@@ -27,18 +28,18 @@ class StartScreen extends Component {
     AsyncStorage.getItem("FILE_CONTENT").then((data) => {
       if (data) {
         AsyncStorage.getItem("NO_QUES").then((number) => {
+          // console.log("AAA");
+          // console.log(number);
           if (number) {
             var allData = JSON.parse(data);
             var arr = this.getRandomArray(allData.length, number);
-
             for (let i = 0; i < arr.length; i++) {
               var jsonData = allData[arr[i]];
               var keyRandom = this.getRandomArray(3, 3);
               jsonData["key_human"] = keyRandom[0];
               jsonData["key_neural"] = keyRandom[1];
               jsonData["key_stat"] = keyRandom[2];
-
-              this.content.push(jsonData); 
+              this.content.push(jsonData);
             }
             this.setState({ buttonDisable: false });
           }
@@ -56,26 +57,43 @@ class StartScreen extends Component {
       }
     }
     return arr;
+  };
+
+  fail(message) {
+    Alert.alert("Data Error", message + "Please contact admin", [
+      {
+        text: "OK",
+        onPress: () => {
+          console.log("OK Pressed");
+          this.props.navigation.navigate("Home");
+        },
+      },
+    ]);
+  }
+  componentDidMount() {
+    AsyncStorage.getItem("FILE_CONTENT").then((data) => {
+      if (data) {
+        AsyncStorage.getItem("NO_QUES").then((data) => {
+          if (data) {
+            if (Platform.OS === "ios") {
+            } else {
+              AsyncStorage.getItem("downloadURI").then((data) => {
+                if (data) {
+                } else {
+                  this.fail("download folder is not set.");
+                }
+              });
+            }
+          } else {
+            this.fail("Number of Question is not selected");
+          }
+        });
+      } else {
+        this.fail("Input File is not selected.");
+      }
+    });
   }
 
-  componentDidMount() {
-    if (
-      AsyncStorage.getItem("FILE_NAME") == null &&
-      AsyncStorage.getItem("NO_QUES") == null
-    ) {
-      this.props.navigation.navigate("Home");
-      alert("Please contact the admin as file is not loaded");
-    }
-  }
-  checkparameters = () => {
-    if (
-      AsyncStorage.getItem("FILE_NAME") == null &&
-      AsyncStorage.getItem("NO_QUES") == null
-    ) {
-      this.props.navigation.navigate("Home");
-      alert("Please contact the admin as file is not loaded");
-    }
-  };
   pressImg1 = () => {
     this.setState({
       pressImage1: true,
@@ -108,6 +126,7 @@ class StartScreen extends Component {
       if (this.state.pressImage1) {
         this.props.navigation.navigate("Game", {
           image: dog,
+          content: this.content,
         });
         this.setState({
           pressImage1: false,
@@ -116,6 +135,7 @@ class StartScreen extends Component {
       if (this.state.pressImage2) {
         this.props.navigation.navigate("Game", {
           image: woman,
+          content: this.content,
         });
         this.setState({
           pressImage2: false,
@@ -130,7 +150,6 @@ class StartScreen extends Component {
           pressImage: false,
         });
       }
-      this.checkparameters();
     } else {
       alert("Please select an avatar to continue");
     }
@@ -140,8 +159,16 @@ class StartScreen extends Component {
       <View style={styles.avatarcontainer}>
         <Text style={styles.avatarmainheading}>NRC Turing </Text>
         <Text style={styles.avatarheading}>Pick an Avatar</Text>
-        <View style={{ flexDirection: "row" }}>
-          <View style={{ flex: 1 }}>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <View
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
             <TouchableOpacity onPress={this.pressImg1}>
               <Image
                 source={dog}
@@ -156,7 +183,9 @@ class StartScreen extends Component {
               />
             </TouchableOpacity>
           </View>
-          <View style={{ flex: 1 }}>
+          <View
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
             <TouchableOpacity onPress={this.pressImg}>
               <Image
                 source={man}
@@ -171,7 +200,9 @@ class StartScreen extends Component {
               />
             </TouchableOpacity>
           </View>
-          <View style={{ flex: 1 }}>
+          <View
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
             <TouchableOpacity onPress={this.pressImg2}>
               <Image
                 source={woman}

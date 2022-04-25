@@ -11,7 +11,7 @@ export default class AdminPassScreen extends Component {
   render() {
     const { route, navigation } = this.props;
     return (
-      <View style={{ marginTop: "50%", padding: 20 }}>
+      <View style={styles.admincontainer}>
         <Text style={{ color: "#00008b" }}>Enter Password</Text>
         <TextInput
           secureTextEntry={true}

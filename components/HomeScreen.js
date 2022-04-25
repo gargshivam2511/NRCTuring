@@ -5,6 +5,8 @@ import styles from "./styles";
 //import * as file from "../sample.csv";
 //import * as RNFS from "react-native-fs";
 import dog from "../assets/dog.png";
+import utils from "./Util";
+
 export default class HomeScreen extends Component {
   constructor(props) {
     super(props);

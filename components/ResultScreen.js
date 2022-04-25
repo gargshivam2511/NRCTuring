@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { Text, View, Image, Pressable, TouchableOpacity} from "react-native";
 import styles from "./styles";
 
-import man from "../assets/man.png";
 import robot from "../assets/robot.png";
-import {getHumanScore, getRobotScore} from "./GameScreen";
+import {getHumanScore, getRobotScore, getAvatar} from "./GameScreen";
+import saveFile from "./Util";
 
 export default class ResultScreen extends Component {
   constructor(props) {
@@ -13,14 +13,14 @@ export default class ResultScreen extends Component {
 
   render() {
     const { route, navigation } = this.props;
+    saveFile();
     return (
       <View style={styles.avatarcontainer}>
-        <Text style={styles.avatarmainheading}>Score</Text>
-
-        <View style={{ flexDirection: "row" }}>
+        <Text style={styles.resultHeading}>Score</Text>
+        <View style={{ flexDirection: "row", padding: 20}}>
           <View style={{ flexDirection: "column", alignItems: "center"}}>
             <Image
-              source={man}
+              source={getAvatar()}
               style={styles.resultImageClass}
             />
             <Text style={styles.resultText}>You</Text>
