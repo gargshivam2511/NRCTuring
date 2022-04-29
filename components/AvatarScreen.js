@@ -25,27 +25,6 @@ class StartScreen extends Component {
       pressImage: false,
       buttonDisable: true,
     };
-    AsyncStorage.getItem("FILE_CONTENT").then((data) => {
-      if (data) {
-        AsyncStorage.getItem("NO_QUES").then((number) => {
-          // console.log("AAA");
-          // console.log(number);
-          if (number) {
-            var allData = JSON.parse(data);
-            var arr = this.getRandomArray(allData.length, number);
-            for (let i = 0; i < arr.length; i++) {
-              var jsonData = allData[arr[i]];
-              var keyRandom = this.getRandomArray(3, 3);
-              jsonData["key_human"] = keyRandom[0];
-              jsonData["key_neural"] = keyRandom[1];
-              jsonData["key_stat"] = keyRandom[2];
-              this.content.push(jsonData);
-            }
-            this.setState({ buttonDisable: false });
-          }
-        });
-      }
-    });
   }
 
   getRandomArray = (upperBound, length) => {
@@ -92,6 +71,27 @@ class StartScreen extends Component {
         this.fail("Input File is not selected.");
       }
     });
+    AsyncStorage.getItem("FILE_CONTENT").then((data) => {
+      if (data) {
+        AsyncStorage.getItem("NO_QUES").then((number) => {
+          // console.log("AAA");
+          // console.log(number);
+          if (number) {
+            var allData = JSON.parse(data);
+            var arr = this.getRandomArray(allData.length, number);
+            for (let i = 0; i < arr.length; i++) {
+              var jsonData = allData[arr[i]];
+              var keyRandom = this.getRandomArray(3, 3);
+              jsonData["key_human"] = keyRandom[0];
+              jsonData["key_neural"] = keyRandom[1];
+              jsonData["key_stat"] = keyRandom[2];
+              this.content.push(jsonData);
+            }
+            this.setState({ buttonDisable: false });
+          }
+        });
+      }
+    });
   }
 
   pressImg1 = () => {
@@ -124,7 +124,7 @@ class StartScreen extends Component {
       this.state.pressImage
     ) {
       if (this.state.pressImage1) {
-        this.props.navigation.navigate("Game", {
+        this.props.navigation.replace("Game", {
           image: dog,
           content: this.content,
         });
@@ -133,7 +133,7 @@ class StartScreen extends Component {
         });
       }
       if (this.state.pressImage2) {
-        this.props.navigation.navigate("Game", {
+        this.props.navigation.replace("Game", {
           image: woman,
           content: this.content,
         });
@@ -142,7 +142,7 @@ class StartScreen extends Component {
         });
       }
       if (this.state.pressImage) {
-        this.props.navigation.navigate("Game", {
+        this.props.navigation.replace("Game", {
           image: man,
           content: this.content,
         });

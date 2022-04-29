@@ -8,13 +8,16 @@ const saveFile = async () => {
   if (Platform.OS === "ios") {
     //const {status} = FileSystem.;
     var filename = "gamelog" + "_" + Date.now() + ".tsv";
-    let fileUri = FileSystem.documentDirectory + filename;
+    let fileUri = FileSystem.documentDirectory + "/NRCTuring/" + filename;
+    await FileSystem.makeDirectoryAsync(
+      FileSystem.documentDirectory + "/NRCTuring/",
+      { intermediates: true }
+    );
     await FileSystem.writeAsStringAsync(fileUri, getLogs(), {
       encoding: FileSystem.EncodingType.UTF8,
     });
+
     setLogs();
-    const UTI = "public.item";
-    const shareResult = await Sharing.shareAsync(fileUri, { UTI });
   } else {
     var albumURI = await AsyncStorage.getItem("downloadURI");
 

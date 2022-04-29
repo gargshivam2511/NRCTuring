@@ -7,6 +7,7 @@ import * as DocumentPicker from "expo-document-picker";
 import { Fontisto } from "@expo/vector-icons";
 import * as FileSystem from "expo-file-system";
 import { Platform } from "expo-modules-core";
+import * as Sharing from "expo-sharing";
 
 export default class AdminScreen extends Component {
   name = "";
@@ -53,6 +54,35 @@ export default class AdminScreen extends Component {
       this.dirname = uri;
       this.setState({});
     }
+  };
+
+  ShareDir = async () => {
+    //var filename = "gamelog" + "_" + Date.now() + ".tsv";
+    let fileUri = FileSystem.documentDirectory + "/NRCTuring/";
+    //setLogs();
+    await FileSystem.makeDirectoryAsync(
+      FileSystem.documentDirectory + "/NRCTuring/",
+      { intermediates: true }
+    );
+    const UTI = "public.item";
+    const shareResult = await Sharing.shareAsync(fileUri, { UTI });
+    this.dirname = fileUri;
+    this.setState({});
+  };
+
+  DeleteDir = async () => {
+    //var filename = "gamelog" + "_" + Date.now() + ".tsv";
+    let fileUri = FileSystem.documentDirectory + "/NRCTuring/";
+    //setLogs();
+    await FileSystem.deleteAsync(FileSystem.documentDirectory + "/NRCTuring/", {
+      idempotent: true,
+    });
+    await FileSystem.makeDirectoryAsync(
+      FileSystem.documentDirectory + "/NRCTuring/",
+      { intermediates: true }
+    );
+    this.dirname = fileUri;
+    this.setState({});
   };
 
   pickDocument = async () => {
@@ -105,8 +135,8 @@ export default class AdminScreen extends Component {
   };
 
   onSubmitButton = async (newVal) => {
-    if (newVal <= 0) {
-      alert("Please enter a value greater than 0");
+    if (isNaN(newVal)) {
+      alert("Enter only number");
       return;
     }
 
@@ -133,7 +163,6 @@ export default class AdminScreen extends Component {
           </Pressable>
           <Text>{this.name}</Text>
         </View>
-
         <Text style={{ color: "#00008b", marginTop: 20 }}>
           Enter number of questions for the game
         </Text>
@@ -147,6 +176,60 @@ export default class AdminScreen extends Component {
           }}
         />
 
+        {Platform.OS === "android" && (
+          <Pressable
+            style={styles.button1}
+            onPress={() => {
+              this.SaveDir();
+            }}
+          >
+            <Text style={styles.text} secureTextEntry="true">
+              Change Download Directory
+            </Text>
+          </Pressable>
+        )}
+
+        {Platform.OS === "ios" && (
+          <Pressable
+            style={styles.button1}
+            onPress={() => {
+              this.ShareDir();
+            }}
+          >
+            <Text style={styles.text} secureTextEntry="true">
+              Save Log Directory
+            </Text>
+          </Pressable>
+        )}
+
+        {Platform.OS === "ios" && (
+          <Pressable
+            style={styles.button1}
+            onPress={() => {
+              alert("Are you sure you want to delete old logs", [
+                {
+                  text: "OK",
+                  onPress: () => {
+                    console.log("OK Pressed");
+                    this.DeleteDir();
+                  },
+                },
+                {
+                  text: "Cancel",
+                  onPress: () => {
+                    console.log("Cancel Pressed");
+                  },
+                },
+              ]);
+              this.DeleteDir();
+            }}
+          >
+            <Text style={styles.text} secureTextEntry="true">
+              Delete Log Directory
+            </Text>
+          </Pressable>
+        )}
+
         <Pressable
           style={styles.button1}
           disabled={this.state.disableButton}
@@ -158,18 +241,6 @@ export default class AdminScreen extends Component {
             {this.state.disableButton ? "Please Wait" : "Done"}
           </Text>
         </Pressable>
-
-        <Pressable
-          style={styles.button1}
-          onPress={() => {
-            this.SaveDir();
-          }}
-        >
-          <Text style={styles.text} secureTextEntry="true">
-            Change Download Directory
-          </Text>
-        </Pressable>
-        <Text>{this.dirname}</Text>
       </View>
     );
   }
