@@ -8,6 +8,7 @@ export default class AdminPassScreen extends Component {
     super(props);
   }
 
+  state = { text: "" };
   render() {
     const { route, navigation } = this.props;
     return (
@@ -22,7 +23,7 @@ export default class AdminPassScreen extends Component {
         <Pressable
           style={styles.button1}
           onPress={() => {
-            if (this.state.text == "NRCPASSWORD")
+            if (this.state.text != null && this.state.text == "NRCPASSWORD")
               this.props.navigation.navigate("Admin");
             else alert("Please enter correct password");
           }}

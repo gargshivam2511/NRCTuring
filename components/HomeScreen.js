@@ -27,7 +27,6 @@ export default class HomeScreen extends Component {
           ]}
         />
         <Text style={styles.avatarmainheading}>NRC Canada</Text>
-        <Text>Home Screen</Text>
         <Pressable
           style={styles.button}
           onPress={() => {
